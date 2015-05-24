@@ -1,0 +1,8 @@
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply from: "${rootDir}/gradle/scripts/android-library.gradle"
+apply from: "${rootDir}/gradle/scripts/maven_push.gradle"
+
+dependencies {
+    compile 'org.apache.commons:commons-lang3:3.1'
+}

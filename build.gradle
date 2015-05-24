@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.1.1'
+    }
+}
+
+allprojects {
+    group = POM_GROUP_ID
+    version = POM_VERSION
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "file:///home/snowdream/workspace/git/mvn-repo/releases/" }
+        maven { url "file:///home/snowdream/workspace/git/mvn-repo/snapshots/" }
+        maven { url "http://snowdream.github.io/mvn-repo/releases/" }
+        maven { url "http://snowdream.github.io/mvn-repo/snapshots/" }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+}
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2.1'
+}
+
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply from: "${rootDir}/gradle/scripts/android-library.gradle"
+apply from: "${rootDir}/gradle/scripts/maven_push.gradle"
+
+dependencies {
+    compile project(':modules:log')
+}
+

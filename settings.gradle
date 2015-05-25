@@ -1,2 +1,3 @@
 include ':modules:main'
+include ':modules:core'
 include ':modules:log'

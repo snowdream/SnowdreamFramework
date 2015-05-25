@@ -1,0 +1,11 @@
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply from: "${rootDir}/gradle/scripts/android-library.gradle"
+apply from: "${rootDir}/gradle/scripts/maven_push.gradle"
+
+
+dependencies {
+    compile 'com.github.snowdream.android.app:downloader:1.0'
+    compile 'com.github.snowdream.android.app:updater:1.0@aar'
+}
+

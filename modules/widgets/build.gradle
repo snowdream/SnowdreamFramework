@@ -1,0 +1,117 @@
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply from: "${rootDir}/gradle/scripts/android-library.gradle"
+apply from: "${rootDir}/gradle/scripts/maven_push.gradle"
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:19.1.0'
+    compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.github.eluleci:flatui:3.0.0'
+    compile ('com.rockerhieu.emojicon:library:1.0'){
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+    compile 'com.github.johnkil.android-robototextview:robototextview:2.2.0'
+    compile 'com.andreabaccega:android-form-edittext:1.1.0@aar'
+    compile 'com.github.chrisbanes.photoview:library:1.2.2'
+    compile 'com.edmodo:cropper:1.0.1'
+    compile 'net.simonvt.menudrawer:menudrawer:3.0.6'
+    compile 'com.balysv.materialmenu:material-menu-abc:1.3.1'
+    compile 'com.u1aryz:android-newpopupmenu-lib:1.0.1'
+    compile 'it.sephiroth.android.library.floatingmenu:floatingmenu:1.0.5'
+    compile 'com.arasthel:gnavdrawer-library:1.1.5'
+    compile('de.psdev.licensesdialog:licensesdialog:1.6.0') {
+        exclude module: 'support-v4'
+    }
+    compile 'eu.inmite.android.lib:android-styled-dialogs:1.2.0'
+    compile 'com.r0adkll:postoffice:1.0.10'
+    compile 'com.jpardogo.flabbylistview:library:1.0.0'
+    compile 'com.github.nirhart:parallaxscroll:1.0'
+    compile 'com.github.frankiesardo:linearlistview:1.0.1@aar'
+    compile 'com.github.jorgecastilloprz:pagedheadlistview:1.0.0@aar'
+    compile 'com.felipecsl:quickreturn:1.4.+'
+    compile 'se.emilsjolander:StickyScrollViewItems:1.1.0'
+    compile 'com.jpardogo.listbuddies:library:1.1.1'
+    compile 'it.sephiroth.android.library.horizontallistview:hlistview:1.2.2'
+    compile 'com.diegocarloslima:fgelv:0.1.1@aar'
+    compile 'se.emilsjolander:stickylistheaders:2.1.4'
+    compile ('com.fortysevendeg.swipelistview:swipelistview:1.0-SNAPSHOT@aar') {
+        transitive = true
+    }
+    compile 'com.felipecsl:asymmetricgridview:1.1.0'
+    compile 'com.github.nicolasjafelle:paginggridview:1.0'
+    compile 'com.etsy.android.grid:library:1.0.3'
+    compile 'com.andraskindler.parallaxviewpager:parallaxviewpager:0.3.1'
+    compile 'com.github.gabrielemariotti.cards:library:1.9.1'
+    compile ('com.github.manuelpeinado.fadingactionbar:fadingactionbar-abc:3.1.0'){
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+    compile ('com.github.manuelpeinado.glassactionbar:glassactionbar-abc:0.3.0'){
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+    compile 'com.github.castorflex.smoothprogressbar:library:0.3.1'
+    compile 'com.larswerkman:HoloColorPicker:1.4'
+    //compile 'it.sephiroth.android.library.imagezoom:library:1.0.3'
+    compile 'com.andreabaccega:android-form-edittext:1.0.5'
+    compile 'eu.inmite.android.lib:android-styled-dialogs:1.1.2@aar'
+    compile('de.keyboardsurfer.android.widget:crouton:1.8.4@aar') {
+         exclude group: 'com.google.android', module: 'support-v4'
+    }
+    compile ( 'com.github.castorflex.verticalviewpager:library:19.0.0'){
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+        }
+
+    compile ('com.github.chrisbanes.actionbarpulltorefresh:extra-abc:0.9.3+'){
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+    compile 'com.github.johnpersano:supertoasts:1.3.4@aar'
+    compile 'com.github.johnkil.android-appmsg:appmsg:1.2.0'
+    compile 'com.github.mrengineer13:snackbar:0.4.0'
+    compile 'net.simonvt.messagebar:messagebar:1.0.2'
+    compile 'com.daimajia.numberprogressbar:library:1.0@aar'
+    compile 'com.roomorama:caldroid:1.1.3'
+  //  compile 'com.squareup:android-times-square:1.4.0@aar'
+    compile ("com.doomonafireball.betterpickers:library:1.5.2") {
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+    compile 'com.github.alamkanak:android-week-view:1.1.4'
+    compile "com.wefika:flowlayout:0.3.4"
+    compile 'com.github.manuelpeinado.imagelayout:imagelayout:1.1.0'
+    compile 'org.apmem.tools:layouts:1.4@aar'
+    compile "com.daimajia.swipelayout:library:1.1.7@aar"
+    compile 'com.wmbest.widget:swipeable-layout:1.0.4@aar'
+    compile 'com.github.traex.expandablelayout:library:1.2.2'
+    compile 'com.ikimuhendis:ldrawer:0.1'
+    compile 'com.lorentzos.swipecards:library:1.0.7@aar'
+    compile 'com.marvinlabs:android-slideshow-widget:0.5.0@aar'
+    compile 'com.edmodo:rangebar:1.0.0'
+    compile 'com.sothree.slidinguppanel:library:2.0.2'
+    compile 'com.github.pedrovgs:draggablepanel:1.2@aar'
+    compile 'com.joanzapata.android:android-iconify:1.0.6'
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile 'com.daimajia.androidviewhover:library:1.0.3@aar'
+    compile 'com.github.johnkil.android-progressfragment:progressfragment:1.4.+'
+    compile 'com.github.jenzz.undobar:library:1.1:api8Release@aar'
+    compile 'fr.nicolaspomepuy:discreetapprate:2.0.2@aar'
+    compile 'com.flaviofaria:kenburnsview:1.0.3'
+    compile 'com.cocosw:undobar:1.5@aar'
+    compile 'com.github.codechimp-org.apprater:library:1.0.+'
+    compile 'com.tundem.actionitembadge:library-abs:1.2.0@aar'
+    compile 'info.hoang8f:android-segmented:1.0.2'
+    compile 'com.github.techfreak:wizardpager:1.0.0'
+    compile 'com.github.jorgecastilloprz:expandablepanel:1.0.3@aar'
+    compile 'net.frakbot.glowpadbackport:glowpadbackport:2.1.0'
+    compile 'com.ivankocijan:MagicViews:1.0.4@aar'
+    compile 'net.rdrei.android.dirchooser:library:2.1@aar'
+    compile 'be.billington.calendar.recurrencepicker:library:1.1.0'
+    compile 'de.cketti.library.changelog:ckchangelog:1.2.0'
+    compile 'com.marvinlabs:android-floatinglabel-widgets:1.3.2@aar'
+    compile 'com.nononsenseapps:filepicker:1.1.3'
+    compile "com.briangriffey:slideuppane:1.0@aar"
+    compile 'com.hannesdorfmann:swipeback:1.0.0'
+}
+

@@ -1,3 +1,6 @@
 include ':modules:main'
 include ':modules:core'
 include ':modules:log'
+include ':modules:util'
+include ':modules:resource'
+include ':modules:widgets'

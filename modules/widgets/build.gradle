@@ -3,6 +3,13 @@ apply plugin: 'idea'
 apply from: "${rootDir}/gradle/scripts/android-library.gradle"
 apply from: "${rootDir}/gradle/scripts/maven_push.gradle"
 
+
+repositories {
+    maven { url 'https://github.com/felipecsl/m2repository/raw/master/' }
+    maven { url 'http://clinker.47deg.com/nexus/content/groups/public' }
+    maven { url 'https://github.com/felipecsl/m2repository/raw/master/' }
+}
+
 dependencies {
     compile 'com.android.support:appcompat-v7:19.1.0'
     compile 'com.android.support:support-v4:19.1.0'
@@ -29,7 +36,7 @@ dependencies {
     compile 'com.github.nirhart:parallaxscroll:1.0'
     compile 'com.github.frankiesardo:linearlistview:1.0.1@aar'
     compile 'com.github.jorgecastilloprz:pagedheadlistview:1.0.0@aar'
-    compile 'com.felipecsl:quickreturn:1.4.+'
+    compile 'com.felipecsl.quickreturn:library:1.5.1'
     compile 'se.emilsjolander:StickyScrollViewItems:1.1.0'
     compile 'com.jpardogo.listbuddies:library:1.1.1'
     compile 'it.sephiroth.android.library.horizontallistview:hlistview:1.2.2'

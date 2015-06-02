@@ -1,11 +1,10 @@
 package com.github.snowdream.android.support.v4.app;
 
 import android.content.Context;
+import com.facebook.stetho.Stetho;
 import com.github.snowdream.android.core.Snowdream;
-import com.squareup.leakcanary.RefWatcher;
 import com.squareup.leakcanary.LeakCanary;
-import proguard.annotation.Keep;
-import proguard.annotation.KeepApplication;
+import com.squareup.leakcanary.RefWatcher;
 
 /**
  * Created by hui.yang on 2015/2/26.
@@ -22,7 +21,13 @@ public class Application extends android.app.Application {
 
         refWatcher = LeakCanary.install(this);
 
-
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                        .enableDumpapp(
+                                Stetho.defaultDumperPluginsProvider(this))
+                        .enableWebKitInspector(
+                                Stetho.defaultInspectorModulesProvider(this))
+                        .build());
     }
 
     public static RefWatcher getRefWatcher(Context context) {

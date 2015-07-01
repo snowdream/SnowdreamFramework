@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+        jcenter()
         mavenCentral()
     }
 
@@ -14,8 +15,8 @@ allprojects {
 
     repositories {
         mavenLocal()
-        mavenCentral()
         jcenter()
+        mavenCentral()
         maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "file:///home/snowdream/workspace/git/mvn-repo/releases/" }
         maven { url "file:///home/snowdream/workspace/git/mvn-repo/snapshots/" }

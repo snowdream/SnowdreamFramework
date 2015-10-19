@@ -1,6 +1,10 @@
 {
-    "current": {
-        "SnowdreamFramework": "develop",
-        "scripts": "develop"
-    }
+  "develop": {
+    "SnowdreamFramework": "develop",
+    "scripts": "develop"
+  },
+  "master": {
+    "SnowdreamFramework": "master",
+    "scripts": "master"
+  }
 }

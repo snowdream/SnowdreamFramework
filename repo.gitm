@@ -1,0 +1,10 @@
+{
+  "repository": {
+    "url": "git@github.com:SnowdreamFramework/SnowdreamFramework.git",
+    "repositories": [
+      {
+        "url": "git@github.com:snowdream/scripts.git"
+      }
+    ]
+  }
+}

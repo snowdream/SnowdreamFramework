@@ -4,6 +4,6 @@ apply from: "${rootDir}/gradle/scripts/android-library.gradle"
 apply from: "${rootDir}/gradle/scripts/maven_push.gradle"
 
 dependencies {
-    compile 'com.github.snowdream.android.util:log:1.2.0'
+    compile project(':modules:log')
 }
 

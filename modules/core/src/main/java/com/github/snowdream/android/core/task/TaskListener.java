@@ -3,26 +3,40 @@ package com.github.snowdream.android.core.task;
 /**
  * Created by hui.yang on 2015/4/15.
  */
-public final class TaskListener<Progress, Output> {
-
-
-    public void onStart() {
+public final class TaskListener<Result,Progress> {
+    public void onStartUI() {
     }
 
-    public void onFinish() {
+    public void onFinishUI() {
     }
 
-    public void onSuccess(Output output) {
+    public void onSuccessUI(Result result) {
     }
 
-    public void onProgress(Progress progress) {
+    public void onProgressUI(Progress progress) {
     }
 
-    public void onCancel() {
+    public void onCancelledUI() {
     }
 
-    public void onError(Throwable thr) {
+    public void onErrorUI(Throwable thr) {
     }
 
+    public void onStartNonUI() {
+    }
 
+    public void onFinishNonUI() {
+    }
+
+    public void onSuccessNonUI(Result result) {
+    }
+
+    public void onProgressNonUI(Progress progress) {
+    }
+
+    public void onCancelledNonUI() {
+    }
+
+    public void onErrorNonUI(Throwable thr) {
+    }
 }

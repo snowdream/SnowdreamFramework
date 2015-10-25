@@ -93,5 +93,3 @@ target/
 ### Java ###
 *.class
 
-### Submodule ###
-scripts/*

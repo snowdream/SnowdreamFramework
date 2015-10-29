@@ -1,7 +1,7 @@
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply from: "${rootDir}/gradle/scripts/android-library.gradle"
-apply from: "${rootDir}/gradle/scripts/maven-push.gradle"
+apply from: "${rootDir}/gradle/scripts/bintray-push.gradle"
 
 dependencies {
     compile project(':modules:log')

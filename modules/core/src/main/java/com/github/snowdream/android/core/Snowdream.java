@@ -9,7 +9,6 @@ import com.github.snowdream.android.util.Log;
  */
 public final class Snowdream {
 
-    //Supress default constructor for noninstantiability
     private Snowdream() {
         throw new AssertionError("The operation is not allowed.");
     }

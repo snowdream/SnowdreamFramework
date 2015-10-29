@@ -33,7 +33,7 @@ bintray {
         licenses = ['Apache-2.0']
         labels = ['snowdream', 'framework', 'android','gradle']
         version {
-            name = POM_NAME
+            name = POM_VERSION
             desc = POM_DESCRIPTION
             vcsTag = POM_VERSION
             publicDownloadNumbers = true

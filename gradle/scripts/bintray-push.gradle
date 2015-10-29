@@ -1,0 +1,122 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+configurations {
+    archives {
+        extendsFrom configurations.default
+    }
+}
+
+install {
+    repositories.mavenInstaller {
+        configurePOM(pom)
+    }
+}
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    ossUser = project.hasProperty('ossUser') ? project.property('ossUser') : System.getenv('OSS_USER')
+    ossPassword = project.hasProperty('ossPassword') ? project.property('ossPassword') : System.getenv('OSS_PASSWORD')
+    configurations = ['archives']
+    dryRun = false //Whether to run this as dry-run, without deploying
+    publish = true //If version should be auto published after an upload
+    //Package configuration. The plugin will use the repo and name properties to check if the package already exists. In that case, there's no need to configure the other package properties (like userOrg, desc, etc).
+
+    pkg {
+        repo = POM_GROUP_ID
+        name = POM_ARTIFACT_ID
+        userOrg = user
+        websiteUrl = POM_URL
+        issueTrackerUrl = POM_ISSUE_MANAGEMENT_URL
+        vcsUrl = POM_SCM_URL
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/bintray/gradle-bintray-plugin.git'
+        version {
+            name = POM_NAME
+            desc = POM_DESCRIPTION
+            vcsTag = POM_VERSION
+            publicDownloadNumbers = true
+            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+            //Optional configuration for GPG signing
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = ossPassword //Optional. The passphrase for GPG signing'
+            }
+            //Optional configuration for Maven Central sync of the version
+            mavenCentralSync {
+                sync = true //Optional (true by default). Determines whether to sync the version to Maven Central.
+                user = ossUser //OSS user token
+                password = ossPassword //OSS user password
+                close = '1' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
+            }
+        }
+    }
+}
+
+
+task androidReleaseJar(type: Jar, dependsOn: assembleRelease) {
+    from "$buildDir/intermediates/classes/release/"
+    exclude '**/BuildConfig.class'
+    exclude '**/R.class'
+    exclude '**/R$*.class'
+}
+
+task androidJavadocsJar(type: Jar) {
+    classifier = 'javadoc'
+    from "generateReleaseJavadoc.destinationDir"
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+
+artifacts {
+    archives androidReleaseJar
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
+
+private configurePOM(def pom) {
+    pom.project {
+        groupId POM_GROUP_ID
+        artifactId POM_ARTIFACT_ID
+        version POM_VERSION
+        name POM_NAME
+        packaging POM_PACKAGING
+        description POM_DESCRIPTION
+        url POM_URL
+        inceptionYear POM_INCEPTION_YEAR
+
+        scm {
+            url POM_SCM_URL
+            connection POM_SCM_CONNECTION
+            developerConnection POM_SCM_DEV_CONNECTION
+        }
+
+        licenses {
+            license {
+                name POM_LICENCE_NAME
+                url POM_LICENCE_URL
+                distribution POM_LICENCE_DIST
+                comments POM_LICENCE_COMMENTS
+            }
+        }
+
+        developers {
+            developer {
+                id POM_DEVELOPER_ID
+                name POM_DEVELOPER_NAME
+                email POM_DEVELOPER_EMAIL
+                url POM_DEVELOPER_URL
+            }
+        }
+
+        issueManagement {
+            system POM_ISSUE_MANAGEMENT_SYSTEM
+            url POM_ISSUE_MANAGEMENT_URL
+        }
+    }
+}

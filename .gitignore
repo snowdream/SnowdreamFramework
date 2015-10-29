@@ -92,6 +92,3 @@ target/
 
 ### Java ###
 *.class
-
-### Submodule ###
-/gradle/scripts

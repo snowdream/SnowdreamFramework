@@ -32,7 +32,6 @@ bintray {
         vcsUrl = POM_SCM_URL
         licenses = ['Apache-2.0']
         labels = ['snowdream', 'framework', 'android','gradle']
-        vcsUrl = 'https://github.com/bintray/gradle-bintray-plugin.git'
         version {
             name = POM_NAME
             desc = POM_DESCRIPTION

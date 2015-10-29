@@ -24,8 +24,8 @@ bintray {
     //Package configuration. The plugin will use the repo and name properties to check if the package already exists. In that case, there's no need to configure the other package properties (like userOrg, desc, etc).
 
     pkg {
-        repo = POM_GROUP_ID
-        name = POM_ARTIFACT_ID
+        repo = "maven"
+        name = POM_NAME
         userOrg = user
         websiteUrl = POM_URL
         issueTrackerUrl = POM_ISSUE_MANAGEMENT_URL

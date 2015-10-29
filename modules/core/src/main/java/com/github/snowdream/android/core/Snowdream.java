@@ -11,7 +11,7 @@ public final class Snowdream {
 
     //Supress default constructor for noninstantiability
     private Snowdream() {
-        throw new AssertionError();
+        throw new AssertionError("The operation is not allowed.");
     }
 
     /**

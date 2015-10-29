@@ -94,4 +94,4 @@ target/
 *.class
 
 ### Submodule ###
-scripts/
+/gradle/scripts

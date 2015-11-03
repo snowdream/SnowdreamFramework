@@ -19,26 +19,33 @@ public final class Snowdream {
     private static volatile boolean isInit = false;
 
     /**
-     * The context of the application
+     * The Context of the application
      */
-    private static Context context = null;
+    private static Context mContext = null;
+
+    /**
+     * Whether the app is in Debug Mode
+     */
+    private static  boolean mIsdebug = false;
 
 
     /**
      *
      * call it when application init.
      *
-     * @param context the context of the application.
+     * @param context the Context of the application.
      */
     public static final void init(Context context){
         if (!isInit) {
             synchronized (Snowdream.class) {
                 if (context == null){
-                    throw new NullPointerException("The context is null.");
+                    throw new NullPointerException("The mContext is null.");
                 }
 
-                Snowdream.context = context;
+                Snowdream.mContext = context;
                 isInit = true;
+
+                mIsdebug = BuildConfigUtil.isDebug(mContext);
 
                 Log.setEnabled(isDebug());
                 Log.setGlobalTag("SnowdreamFramework");
@@ -56,7 +63,7 @@ public final class Snowdream {
     public static final void unInit(){
         if (isInit) {
             synchronized (Snowdream.class) {
-                Snowdream.context = null;
+                Snowdream.mContext = null;
                 isInit = false;
             }
         }else{
@@ -65,10 +72,10 @@ public final class Snowdream {
     }
 
     /**
-     * @return the context from the application. It may be null.
+     * @return the mContext from the application. It may be null.
      */
     public static final Context getApplicationContext() {
-        return  Snowdream.context;
+        return  Snowdream.mContext;
     }
 
     /**
@@ -77,12 +84,6 @@ public final class Snowdream {
      * @return  if true,in Debug mode. otherwise,in Release mode.
      */
     public static final boolean isDebug(){
-        boolean isdebug = false;
-
-        if (context != null){
-            isdebug = BuildConfigUtil.isDebug(context);
-        }
-
-        return isdebug;
+        return mIsdebug;
     }
 }

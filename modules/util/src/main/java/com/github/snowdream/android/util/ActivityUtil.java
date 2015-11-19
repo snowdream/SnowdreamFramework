@@ -22,9 +22,8 @@ import android.content.Intent;
 import android.os.Build;
 
 public final class ActivityUtil {
-    //Supress default constructor for noninstantiability
     private ActivityUtil() {
-        throw new AssertionError();
+        throw new AssertionError("No constructor allowed here!");
     }
 
     /**

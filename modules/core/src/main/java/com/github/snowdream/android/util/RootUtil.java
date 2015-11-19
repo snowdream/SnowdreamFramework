@@ -9,6 +9,12 @@ import java.io.InputStreamReader;
  * see: http://stackoverflow.com/a/8097801
  */
 public class RootUtil {
+
+
+    private RootUtil() {
+        throw new AssertionError("No constructor allowed here!");
+    }
+
     /**
      * Check whether the root is rooted.
      *

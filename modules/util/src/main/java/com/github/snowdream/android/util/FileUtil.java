@@ -21,9 +21,8 @@ import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 public final class FileUtil {
-    //Supress default constructor for noninstantiability
     private FileUtil() {
-        throw new AssertionError();
+        throw new AssertionError("No constructor allowed here!");
     }
 
     /**

@@ -21,9 +21,8 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 public final class DensityUtil {
-    //Supress default constructor for noninstantiability
     private DensityUtil() {
-        throw new AssertionError();
+        throw new AssertionError("No constructor allowed here!");
     }
 
     /**

@@ -8,7 +8,7 @@ import android.os.Looper;
  */
 public class ThreadUtil {
     private ThreadUtil() {
-        throw new AssertionError();
+        throw new AssertionError("No constructor allowed here!");
     }
 
     public static boolean isOnUIThread(){

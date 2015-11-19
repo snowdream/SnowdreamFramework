@@ -38,9 +38,8 @@ public final class BuildConfigUtil {
     @Deprecated
     public static final String PACKAGE_NAME = "PACKAGE_NAME";
 
-    //Supress default constructor for noninstantiability
     private BuildConfigUtil() {
-        throw new AssertionError();
+        throw new AssertionError("No constructor allowed here!");
     }
 
     /**

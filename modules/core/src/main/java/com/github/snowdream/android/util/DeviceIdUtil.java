@@ -1,6 +1,7 @@
 package com.github.snowdream.android.util;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import com.github.snowdream.android.content.SharedPreferences;
 import android.os.Build;
 import android.provider.Settings;
@@ -31,7 +32,7 @@ public class DeviceIdUtil {
      * @param context
      * @return
      */
-    public static String getUUID(Context context){
+    public static String getUUID(@NonNull  Context context){
         if (!TextUtils.isEmpty(mDeviceID)){
             return mDeviceID;
         }
@@ -125,7 +126,7 @@ public class DeviceIdUtil {
         }
     }
 
-    public static String getUUID1(Context context){
+    public static String getUUID1(@NonNull Context context){
         if (!TextUtils.isEmpty(mDeviceID)){
             return mDeviceID;
         }
@@ -175,7 +176,7 @@ public class DeviceIdUtil {
      * @param context
      * @return
      */
-    public static String getUUID2(Context context){
+    public static String getUUID2(@NonNull Context context){
         if (!TextUtils.isEmpty(mDeviceID)){
             return mDeviceID;
         }
@@ -194,7 +195,7 @@ public class DeviceIdUtil {
 
     // Here is the code that Reto Meier used in the google I/O presentation this year to get a unique id for the user:
     private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
-    public synchronized static String getUUID3(Context context) {
+    public synchronized static String getUUID3(@NonNull Context context) {
         if (mDeviceID == null) {
             SharedPreferences sharedPrefs = new SharedPreferences(context,PREF_UNIQUE_ID,Context.MODE_PRIVATE);
             mDeviceID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
@@ -208,7 +209,7 @@ public class DeviceIdUtil {
         return mDeviceID;
     }
 
-    public synchronized static String getUUID4(Context context) {
+    public synchronized static String getUUID4(@NonNull Context context) {
         if (!TextUtils.isEmpty(mDeviceID)){
             return mDeviceID;
         }

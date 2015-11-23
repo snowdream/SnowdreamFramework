@@ -1,11 +1,11 @@
-package com.github.snowdream.android.app;
+package com.github.snowdream.android.content;
 
 /**
  * Created by snowdream on 4/2/14.
  */
+
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -14,11 +14,11 @@ import com.github.snowdream.android.util.Log;
 import java.util.Map;
 import java.util.Set;
 
-public class SharedPreferencesManager {
-    private SharedPreferences.Editor editor = null;
-    private SharedPreferences sharedPreferences = null;
+public class SharedPreferences {
+    private android.content.SharedPreferences.Editor editor = null;
+    private android.content.SharedPreferences sharedPreferences = null;
 
-    public SharedPreferencesManager(final Context context) {
+    public SharedPreferences(final Context context) {
         if (context == null) {
             Log.e("The context is null,please check it!");
             return;
@@ -27,7 +27,7 @@ public class SharedPreferencesManager {
         editor = sharedPreferences.edit();
     }
 
-    public SharedPreferencesManager(final Context context, final String name, final int mode) {
+    public SharedPreferences(final Context context, final String name, final int mode) {
         if (context == null) {
             Log.e("The context is null,please check it.");
             return;
@@ -53,7 +53,7 @@ public class SharedPreferencesManager {
      *
      * @param key The name of the preference to check.
      * @return Returns true if the preference exists in the preferences,
-     *         otherwise false.
+     * otherwise false.
      */
     public boolean contains(String key) {
         return sharedPreferences.contains(key);
@@ -65,7 +65,7 @@ public class SharedPreferencesManager {
      * consistency of your stored data is not guaranteed if you do.
      *
      * @return Returns a map containing a list of pairs key/value representing
-     *         the preferences.
+     * the preferences.
      * @throws NullPointerException
      */
     public Map<String, ?> getAll() throws NullPointerException {
@@ -75,11 +75,11 @@ public class SharedPreferencesManager {
     /**
      * Retrieve a boolean value from the preferences.
      *
-     * @param key The name of the preference to retrieve.
+     * @param key      The name of the preference to retrieve.
      * @param defValue Value to return if this preference does not exist.
      * @return Returns the preference value if it exists, or defValue. Throws
-     *         ClassCastException if there is a preference with this name that
-     *         is not a boolean.
+     * ClassCastException if there is a preference with this name that
+     * is not a boolean.
      * @throws ClassCastException
      */
     public boolean getBoolean(String key, boolean defValue) throws ClassCastException {
@@ -89,11 +89,11 @@ public class SharedPreferencesManager {
     /**
      * Retrieve a float value from the preferences.
      *
-     * @param key The name of the preference to retrieve.
+     * @param key      The name of the preference to retrieve.
      * @param defValue Value to return if this preference does not exist.
      * @return Returns the preference value if it exists, or defValue. Throws
-     *         ClassCastException if there is a preference with this name that
-     *         is not a float.
+     * ClassCastException if there is a preference with this name that
+     * is not a float.
      * @throws ClassCastException
      */
     public float getFloat(String key, float defValue) throws ClassCastException {
@@ -103,11 +103,11 @@ public class SharedPreferencesManager {
     /**
      * Retrieve an int value from the preferences.
      *
-     * @param key The name of the preference to retrieve.
+     * @param key      The name of the preference to retrieve.
      * @param defValue Value to return if this preference does not exist.
      * @return Returns the preference value if it exists, or defValue. Throws
-     *         ClassCastException if there is a preference with this name that
-     *         is not an int.
+     * ClassCastException if there is a preference with this name that
+     * is not an int.
      * @throws ClassCastException
      */
     public int getInt(String key, int defValue) throws ClassCastException {
@@ -117,11 +117,11 @@ public class SharedPreferencesManager {
     /**
      * Retrieve a String value from the preferences.
      *
-     * @param key The name of the preference to retrieve.
+     * @param key      The name of the preference to retrieve.
      * @param defValue Value to return if this preference does not exist.
      * @return Returns the preference value if it exists, or defValue. Throws
-     *         ClassCastException if there is a preference with this name that
-     *         is not a String.
+     * ClassCastException if there is a preference with this name that
+     * is not a String.
      * @throws ClassCastException
      */
     public String getString(String key, String defValue) throws ClassCastException {
@@ -141,10 +141,10 @@ public class SharedPreferencesManager {
      * Registers a callback to be invoked when a change happens to a preference.
      *
      * @param listener The callback that will run.
-     * @see SharedPreferencesManager#unregisterOnSharedPreferenceChangeListener(android.content.SharedPreferences.OnSharedPreferenceChangeListener)
+     * @see SharedPreferences#unregisterOnSharedPreferenceChangeListener(android.content.SharedPreferences.OnSharedPreferenceChangeListener)
      */
     public void registerOnSharedPreferenceChangeListener(
-            SharedPreferences.OnSharedPreferenceChangeListener listener) {
+            android.content.SharedPreferences.OnSharedPreferenceChangeListener listener) {
         sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
     }
 
@@ -152,10 +152,10 @@ public class SharedPreferencesManager {
      * Unregisters a previous callback.
      *
      * @param listener The callback that should be unregistered.
-     * @see SharedPreferencesManager#registerOnSharedPreferenceChangeListener(android.content.SharedPreferences.OnSharedPreferenceChangeListener)
+     * @see SharedPreferences#registerOnSharedPreferenceChangeListener(android.content.SharedPreferences.OnSharedPreferenceChangeListener)
      */
     public void unregisterOnSharedPreferenceChangeListener(
-            SharedPreferences.OnSharedPreferenceChangeListener listener) {
+            android.content.SharedPreferences.OnSharedPreferenceChangeListener listener) {
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener);
     }
 
@@ -179,15 +179,15 @@ public class SharedPreferencesManager {
      * sure in-flight disk writes from apply() complete before switching
      * states.</BR>
      *
-     * @see SharedPreferences.Editor#apply()
+     * @see android.content.SharedPreferences.Editor#apply()
      */
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public void apply() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
-            return;
+            editor.commit();
+        } else {
+            editor.apply();
         }
-
-        editor.apply();
     }
 
     /**
@@ -204,8 +204,9 @@ public class SharedPreferencesManager {
      *
      * @return
      */
-    public boolean clear() {
-        return editor.clear().commit();
+    public SharedPreferences clear() {
+        editor.clear();
+        return this;
     }
 
     /**
@@ -225,94 +226,105 @@ public class SharedPreferencesManager {
      * </p>
      *
      * @return Returns true if the new values were successfully written to
-     *         persistent storage.
+     * persistent storage.
      */
     public boolean commit() {
-        return editor.commit();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
+            return editor.commit();
+        } else {
+            editor.apply();
+            return true;
+        }
     }
 
     /**
      * Set a boolean value in the preferences editor, to be written back with
      * auto commit.
      *
-     * @param key The name of the preference to modify.
+     * @param key   The name of the preference to modify.
      * @param value The new value for the preference.
      * @return Returns a reference to the same Editor object, so you can chain
-     *         put calls together.
+     * put calls together.
      */
-    public boolean putBoolean(String key, boolean value) {
-        return editor.putBoolean(key, value).commit();
+    public SharedPreferences putBoolean(String key, boolean value) {
+        editor.putBoolean(key, value);
+        return this;
     }
 
     /**
      * Set a float value in the preferences editor, to be written back with auto
      * commit.
      *
-     * @param key The name of the preference to modify.
+     * @param key   The name of the preference to modify.
      * @param value The new value for the preference.
      * @return Returns a reference to the same Editor object, so you can chain
-     *         put calls together.
+     * put calls together.
      */
-    public boolean putFloat(String key, float value) {
-        return editor.putFloat(key, value).commit();
+    public SharedPreferences putFloat(String key, float value) {
+        editor.putFloat(key, value);
+        return this;
     }
 
     /**
      * Set an int value in the preferences editor, to be written back with auto
      * commit.
      *
-     * @param key The name of the preference to modify.
+     * @param key   The name of the preference to modify.
      * @param value The new value for the preference.
      * @return Returns a reference to the same Editor object, so you can chain
-     *         put calls together.
+     * put calls together.
      */
-    public boolean putInt(String key, int value) {
-        return editor.putInt(key, value).commit();
+    public SharedPreferences putInt(String key, int value) {
+        editor.putInt(key, value);
+        return this;
     }
 
     /**
      * Set a long value in the preferences editor, to be written back with auto
      * commit.
      *
-     * @param key The name of the preference to modify.
+     * @param key   The name of the preference to modify.
      * @param value The new value for the preference.
      * @return Returns a reference to the same Editor object, so you can chain
-     *         put calls together.
+     * put calls together.
      */
-    public boolean putLong(String key, long value) {
-        return editor.putLong(key, value).commit();
+    public SharedPreferences putLong(String key, long value) {
+        editor.putLong(key, value);
+        return this;
     }
 
     /**
      * Set a String value in the preferences editor, to be written back with
      * auto commit.
      *
-     * @param key The name of the preference to modify.
+     * @param key   The name of the preference to modify.
      * @param value The new value for the preference.
      * @return Returns a reference to the same Editor object, so you can chain
-     *         put calls together.
+     * put calls together.
      */
-    public boolean putString(String key, String value) {
-        return editor.putString(key, value).commit();
+    public SharedPreferences putString(String key, String value) {
+        editor.putString(key, value);
+        return this;
     }
 
     /**
      * Set a set of String values in the preferences editor, to be written back
      * with auto commit.
      *
-     * @param key The name of the preference to modify.
+     * @param key    The name of the preference to modify.
      * @param values The set of new values for the preference. Passing null for
-     *            this argument is equivalent to calling remove(String) with
-     *            this key.
+     *               this argument is equivalent to calling remove(String) with
+     *               this key.
      * @return Returns a reference to the same Editor object, so you can chain
-     *         put calls together.
+     * put calls together.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public boolean putStringSet(String key, Set<String> values) {
+    public SharedPreferences putStringSet(String key, Set<String> values) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            return false;
+            return this;
         }
-        return editor.putStringSet(key, values).commit();
+        editor.putStringSet(key, values);
+        return this;
     }
 
     /**
@@ -328,10 +340,11 @@ public class SharedPreferencesManager {
      *
      * @param key The name of the preference to remove.
      * @return Returns a reference to the same Editor object, so you can chain
-     *         put calls together.
+     * put calls together.
      */
-    public boolean remove(String key) {
-        return editor.remove(key).commit();
+    public SharedPreferences remove(String key) {
+        editor.remove(key);
+        return this;
     }
 
 }

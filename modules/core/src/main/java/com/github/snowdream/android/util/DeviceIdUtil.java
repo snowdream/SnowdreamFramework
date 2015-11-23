@@ -1,7 +1,7 @@
 package com.github.snowdream.android.util;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import com.github.snowdream.android.content.SharedPreferences;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
@@ -52,8 +52,8 @@ public class DeviceIdUtil {
             if (uuid == null) {
                 synchronized (DeviceUuidFactory.class) {
                     if (uuid == null) {
-                        final SharedPreferences prefs = context
-                                .getSharedPreferences(PREFS_FILE, 0);
+                        final SharedPreferences prefs =   new SharedPreferences(context,PREFS_FILE, 0);
+
                         final String id = prefs.getString(PREFS_DEVICE_ID, null);
                         if (id != null) {
                             // Use the ids previously computed and stored in the
@@ -84,9 +84,7 @@ public class DeviceIdUtil {
                                 throw new RuntimeException(e);
                             }
                             // Write the value out to the prefs file
-                            prefs.edit()
-                                    .putString(PREFS_DEVICE_ID, uuid.toString())
-                                    .commit();
+                            prefs.putString(PREFS_DEVICE_ID, uuid.toString()).commit();
                         }
                     }
                 }
@@ -198,14 +196,12 @@ public class DeviceIdUtil {
     private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
     public synchronized static String getUUID3(Context context) {
         if (mDeviceID == null) {
-            SharedPreferences sharedPrefs = context.getSharedPreferences(
-                    PREF_UNIQUE_ID, Context.MODE_PRIVATE);
+            SharedPreferences sharedPrefs = new SharedPreferences(context,PREF_UNIQUE_ID,Context.MODE_PRIVATE);
             mDeviceID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
             if (mDeviceID == null) {
                 mDeviceID = UUID.randomUUID().toString();
-                SharedPreferences.Editor editor = sharedPrefs.edit();
-                editor.putString(PREF_UNIQUE_ID, mDeviceID);
-                editor.commit();
+                sharedPrefs.putString(PREF_UNIQUE_ID, mDeviceID);
+                sharedPrefs.commit();
             }
         }
 

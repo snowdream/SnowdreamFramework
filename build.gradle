@@ -1,8 +1,10 @@
 buildscript {
     repositories {
+        mavenLocal()
         maven { url 'http://maven.oschina.net/content/groups/public/' }
         jcenter { url "http://jcenter.bintray.com/"}
         maven { url "http://repo1.maven.org/maven2"}
+        maven { url "https://raw.githubusercontent.com/snowdream/m2repository/master/" }
     }
 
     dependencies {
@@ -21,11 +23,7 @@ allprojects {
         maven { url 'http://maven.oschina.net/content/groups/public/' }
         jcenter { url "http://jcenter.bintray.com/"}
         maven { url "http://repo1.maven.org/maven2"}
-        maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
-        maven { url "file:///home/snowdream/workspace/git/mvn-repo/releases/" }
-        maven { url "file:///home/snowdream/workspace/git/mvn-repo/snapshots/" }
-        maven { url "http://snowdream.github.io/mvn-repo/releases/" }
-        maven { url "http://snowdream.github.io/mvn-repo/snapshots/" }
+        maven { url "https://raw.githubusercontent.com/snowdream/m2repository/master/" }
     }
 
     tasks.withType(JavaCompile) {

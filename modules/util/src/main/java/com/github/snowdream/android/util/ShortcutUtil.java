@@ -12,6 +12,7 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 
@@ -39,7 +40,7 @@ public class ShortcutUtil {
      *         返回false为pkg值为null或者找不到该应用或者该应用无用于Launch的MainActivity 。
      * @author sodino
      * */
-    public static boolean addShortcutByPackageName(Context context, String pkg) {
+    public static boolean addShortcutByPackageName(@NonNull Context context, @NonNull String pkg) {
         // 快捷方式名
         String title = "unknown";
         // MainActivity完整名
@@ -120,8 +121,8 @@ public class ShortcutUtil {
      *
      *
      */
-    public static void addShortcut(Context context, String shortcutName,
-                                   Intent actionIntent, ShortcutIconResource icon, boolean allowRepeat) {
+    public static void addShortcut(@NonNull Context context, @NonNull String shortcutName,
+                                   @NonNull Intent actionIntent, @NonNull ShortcutIconResource icon, boolean allowRepeat) {
         Intent shortcutIntent = new Intent(
                 "com.android.launcher.action.INSTALL_SHORTCUT");
         shortcutIntent.putExtra("duplicate", allowRepeat);// 是否允许重复创建
@@ -148,8 +149,8 @@ public class ShortcutUtil {
      *
      *
      */
-    public static void addShortcut(Context context, String shortcutName,
-                                   Intent actionIntent, Bitmap icon, boolean allowRepeat) {
+    public static void addShortcut(@NonNull Context context, @NonNull String shortcutName,
+                                   @NonNull Intent actionIntent, @NonNull Bitmap icon, boolean allowRepeat) {
         Intent shortcutIntent = new Intent(
                 "com.android.launcher.action.INSTALL_SHORTCUT");
         shortcutIntent.putExtra("duplicate", allowRepeat);// 是否允许重复创建
@@ -171,8 +172,8 @@ public class ShortcutUtil {
      *
      *
      */
-    public static void deleteShortcut(Context context, String shortcutName,
-                                      Intent actionIntent, boolean isDuplicate) {
+    public static void deleteShortcut(@NonNull Context context, @NonNull String shortcutName,
+                                      @NonNull Intent actionIntent, boolean isDuplicate) {
         Intent shortcutIntent = new Intent(
                 "com.android.launcher.action.UNINSTALL_SHORTCUT");
         shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutName);// 快捷方式的标题
@@ -191,7 +192,7 @@ public class ShortcutUtil {
      * 	此处需要在AndroidManifest.xml中配置相关的桌面权限信息<br/>
      * 错误信息已捕获<br/>
      */
-    public static boolean isShortCutExist(Context context, String title) {
+    public static boolean isShortCutExist(@NonNull Context context, @NonNull String title) {
         boolean result = false;
         try {
             final ContentResolver cr = context.getContentResolver();
@@ -239,7 +240,7 @@ public class ShortcutUtil {
      * 	此处需要在AndroidManifest.xml中配置相关的桌面权限信息<br/>
      * 错误信息已捕获<br/>
      */
-    public static boolean isShortCutExist(Context context, String title, Intent intent) {
+    public static boolean isShortCutExist(@NonNull Context context, @NonNull String title, @NonNull Intent intent) {
         boolean result = false;
         try{
             final ContentResolver cr = context.getContentResolver();
@@ -283,7 +284,7 @@ public class ShortcutUtil {
      * 更新桌面快捷方式图标，不一定所有图标都有效<br/>
      * 如果快捷方式不存在，则不更新<br/>.
      */
-    public static void updateShortcutIcon(Context context, String title, Intent intent,Bitmap bitmap) {
+    public static void updateShortcutIcon(@NonNull Context context, @NonNull String title,@NonNull  Intent intent,@NonNull  Bitmap bitmap) {
         if(bitmap==null){
             Log.i(TAG, "update shortcut icon,bitmap empty");
             return;
@@ -337,7 +338,7 @@ public class ShortcutUtil {
     }
 
 
-    private static byte[] flattenBitmap(Bitmap bitmap) {
+    private static byte[] flattenBitmap(@NonNull Bitmap bitmap) {
         // Try go guesstimate how much space the icon will take when serialized
         // to avoid unnecessary allocations/copies during the write.
         int size = bitmap.getWidth() * bitmap.getHeight() * 4;

@@ -17,6 +17,7 @@
 package com.github.snowdream.android.util;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
@@ -29,7 +30,7 @@ public final class DensityUtil {
      * see {@link DensityUtil#convert}
      */
     @Deprecated
-    public static int dip2px(Context context, int dipValue) {
+    public static int dip2px(@NonNull Context context, int dipValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
@@ -38,7 +39,7 @@ public final class DensityUtil {
      * see {@link DensityUtil#convert}
      */
     @Deprecated
-    public static int px2dip(Context context, float pxValue) {
+    public static int px2dip(@NonNull Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
@@ -47,7 +48,7 @@ public final class DensityUtil {
      * see {@link DensityUtil#convert}
      */
     @Deprecated
-    public static int sp2px(Context context, float spValue) {
+    public static int sp2px(@NonNull Context context, float spValue) {
         float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
@@ -56,7 +57,7 @@ public final class DensityUtil {
      * see {@link DensityUtil#convert}
      */
     @Deprecated
-    public static int px2sp(Context context, float pxValue) {
+    public static int px2sp(@NonNull Context context, float pxValue) {
         float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
@@ -70,7 +71,7 @@ public final class DensityUtil {
      * @param targetUnit target unit,see {@link android.util.TypedValue}
      * @return target value
      */
-    private static float convert1(Context context, int srcUnit, float srcValue, int targetUnit) {
+    private static float convert1(@NonNull Context context, int srcUnit, float srcValue, int targetUnit) {
         float targetValue = 0f;
         if (context == null) {
             throw new NullPointerException("The Context is Null.");
@@ -119,7 +120,7 @@ public final class DensityUtil {
      * @param targetUnit target unit,see {@link android.util.TypedValue}
      * @return target value
      */
-    public static int convert(Context context, int srcUnit, float srcValue, int targetUnit) {
+    public static int convert(@NonNull Context context, int srcUnit, float srcValue, int targetUnit) {
         return (int) (convert1(context, srcUnit, srcValue, targetUnit) + 0.5f);
     }
 }

@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ResolveInfo;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 /**
@@ -25,7 +26,7 @@ public class LauncherUtil {
     /**
      * get the current Launcher's Package Name
      */
-    public static String getCurrentLauncherPackageName(Context context) {
+    public static String getCurrentLauncherPackageName(@NonNull Context context) {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         ResolveInfo res = context.getPackageManager().resolveActivity(intent, 0);
@@ -46,7 +47,7 @@ public class LauncherUtil {
      *
      * @param context
      */
-    public static String getAuthorityFromPermissionDefault(Context context) {
+    public static String getAuthorityFromPermissionDefault(@NonNull Context context) {
         if (TextUtils.isEmpty(mBufferedValue))//we get value buffered
             mBufferedValue = getAuthorityFromPermission(context, "com.android.launcher.permission.READ_SETTINGS");
         return mBufferedValue;
@@ -64,7 +65,7 @@ public class LauncherUtil {
      * @param permission 读取设置的权限  READ_SETTINGS_PERMISSION
      * @return
      */
-    public static String getAuthorityFromPermission(Context context, String permission) {
+    public static String getAuthorityFromPermission(@NonNull Context context, @NonNull String permission) {
         if (TextUtils.isEmpty(permission)) {
             return "";
         }

@@ -17,6 +17,7 @@
 package com.github.snowdream.android.util;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.lang.reflect.Field;
@@ -50,7 +51,7 @@ public final class BuildConfigUtil {
      * @param fieldName The name of the field-to-access
      * @return The value of the field, or {@code null} if the field is not found.
      */
-    public static <T> T getBuildConfigValue(Context context, String fieldName) {
+    public static <T> T getBuildConfigValue(@NonNull Context context, @NonNull String fieldName) {
         if (context == null) {
             Log.w("The Context is null.");
             return null;
@@ -81,7 +82,7 @@ public final class BuildConfigUtil {
      * @param context
      * @return
      */
-    public static Boolean isDebug(Context context) {
+    public static Boolean isDebug(@NonNull Context context) {
         return getBuildConfigValue(context, DEBUG);
     }
 
@@ -102,7 +103,7 @@ public final class BuildConfigUtil {
      * @return
      */
     @Deprecated
-    public static String getPackageName(Context context) {
+    public static String getPackageName(@NonNull Context context) {
         return getBuildConfigValue(context, PACKAGE_NAME);
     }
 
@@ -112,7 +113,7 @@ public final class BuildConfigUtil {
      * @param context
      * @return
      */
-    public static String getBuildType(Context context) {
+    public static String getBuildType(@NonNull Context context) {
         return getBuildConfigValue(context, BUILD_TYPE);
     }
 
@@ -122,7 +123,7 @@ public final class BuildConfigUtil {
      * @param context
      * @return
      */
-    public static String getFlavor(Context context) {
+    public static String getFlavor(@NonNull Context context) {
         return getBuildConfigValue(context, FLAVOR);
     }
 
@@ -132,7 +133,7 @@ public final class BuildConfigUtil {
      * @param context
      * @return
      */
-    public static String getVersionName(Context context) {
+    public static String getVersionName(@NonNull Context context) {
         return getBuildConfigValue(context, VERSION_NAME);
     }
 
@@ -142,7 +143,7 @@ public final class BuildConfigUtil {
      * @param context
      * @return
      */
-    public static Integer getVersionCode(Context context) {
+    public static Integer getVersionCode(@NonNull Context context) {
         return getBuildConfigValue(context, VERSION_CODE);
     }
 }

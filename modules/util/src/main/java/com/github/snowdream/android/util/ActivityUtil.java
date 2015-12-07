@@ -20,6 +20,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.NonNull;
 
 public final class ActivityUtil {
     private ActivityUtil() {
@@ -32,7 +33,7 @@ public final class ActivityUtil {
      * @param activity
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static void restartActivity(Activity activity) {
+    public static void restartActivity(@NonNull Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             activity.recreate();
         } else {

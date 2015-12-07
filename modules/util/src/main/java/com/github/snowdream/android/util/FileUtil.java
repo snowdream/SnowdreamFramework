@@ -17,6 +17,7 @@
 package com.github.snowdream.android.util;
 
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
@@ -31,7 +32,7 @@ public final class FileUtil {
      * @param url the url or uri
      * @return MimeTypes
      */
-    public static String getMimeTypeFromUrl(String url) {
+    public static String getMimeTypeFromUrl(@NonNull String url) {
         return getMimeTypeFromUrlByExtension(url);
     }
 

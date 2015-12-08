@@ -1,4 +1,4 @@
-package com.github.snowdream.android.os;
+package com.github.snowdream.android.crypto;
 
 import android.os.Build;
 import android.os.SystemClock;

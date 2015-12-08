@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package com.github.snowdream.android.util;
+package com.github.snowdream.android.util.log;
 
 import android.text.TextUtils;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
@@ -470,7 +469,7 @@ public final class Log {
     /**
      * get the policy of the log
      * 
-     * use {@link com.github.snowdream.android.util.LogFilter} instead.
+     * use {@link LogFilter} instead.
      * This method will be removed in the near future.
      *
      * @return the policy of the log
@@ -483,7 +482,7 @@ public final class Log {
     /**
      * set the policy of the log
      * 
-     * use {@link com.github.snowdream.android.util.LogFilter} instead.
+     * use {@link LogFilter} instead.
      * This method will be removed in the near future.
      *
      * @param policy the policy of the log

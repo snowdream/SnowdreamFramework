@@ -19,6 +19,7 @@ package com.github.snowdream.android.util;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import com.github.snowdream.android.util.log.Log;
 
 import java.lang.reflect.Field;
 

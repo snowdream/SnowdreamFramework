@@ -8,7 +8,10 @@ repositories {
 }
 
 dependencies {
-    compile 'commons-codecs:commons-codecs:1.10'
+    compile project(':modules:core')
+    compile('commons-codecs:commons-codecs:1.10') {
+        transitive = false;
+    }
     androidTestCompile 'commons-codecs:commons-codecs:1.10'
 }
 

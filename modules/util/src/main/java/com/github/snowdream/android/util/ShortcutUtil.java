@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import com.github.snowdream.android.util.log.Log;
 
 
 import java.io.ByteArrayOutputStream;

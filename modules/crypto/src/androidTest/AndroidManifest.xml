@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.snowdream.android.crypto"
+    package="com.github.snowdream.android.crypto.test"
     android:versionCode="1"
     android:versionName="1.0">
 

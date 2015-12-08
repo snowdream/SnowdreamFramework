@@ -1,6 +1,10 @@
 package com.github.snowdream.android.util;
 
 import android.test.AndroidTestCase;
+import com.github.snowdream.android.util.log.FilePathGenerator;
+import com.github.snowdream.android.util.log.Log;
+import com.github.snowdream.android.util.log.LogFilter;
+import com.github.snowdream.android.util.log.LogFormatter;
 
 /**
  * Created by snowdream on 4/8/14.

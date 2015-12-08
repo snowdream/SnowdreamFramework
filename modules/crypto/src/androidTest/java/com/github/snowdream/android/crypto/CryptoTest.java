@@ -2,11 +2,11 @@ package com.github.snowdream.android.crypto;
 
 import android.os.Environment;
 import android.test.AndroidTestCase;
-import android.util.TimingLogger;
-import org.apaches.commons.codec.digest.DigestUtils;
+import android.text.TextUtils;
+import com.github.snowdream.android.core.task.TaskListener;
 
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 
 /**
  * Created by snowdream on 4/8/14.
@@ -31,36 +31,40 @@ public class CryptoTest extends AndroidTestCase {
         super.tearDown();
     }
 
-    public void testMD5String() {
-        TimingLogger timings = new TimingLogger(TAG, "testMD5String");
-        String md5 = DigestUtils.md5Hex(STR);
-        timings.dumpToLog();
-
-        assertNotNull(md5);
+    public void testmd5HexSync(){
+        String md5 = Crypto.md5HexSync(STR);
         assertEquals(MD5STR,md5.toUpperCase());
+
+         md5 = Crypto.md5HexSync(STR.getBytes());
+         assertEquals(MD5STR,md5.toUpperCase());
     }
 
-    public void testAPKFile() {
+    public void testmd5HexASync(){
+        //check md5 for apk
         try {
-            TimingLogger timings = new TimingLogger(TAG, "testAPKFile");
-            String md5 = DigestUtils.md5Hex(new FileInputStream(APKFILE));
-            timings.dumpToLog();
-
-            assertNotNull(md5);
-            assertEquals(MD5APKFILE,md5.toUpperCase());
-        } catch (IOException e) {
+             Crypto.md5Hex(new FileInputStream(APKFILE), new TaskListener<String, Void>() {
+                 @Override
+                 public void onSuccessUI(String md5) {
+                     if (!TextUtils.isEmpty(md5)) {
+                         assertEquals(MD5APKFILE, md5.toUpperCase());
+                     }
+                 }
+             });
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-    }
 
-    public void testEXEFile() {
+        //check md5 for exe
         try {
-            TimingLogger timings = new TimingLogger(TAG, "testEXEFile");
-            String md5 = DigestUtils.md5Hex(new FileInputStream(EXEFILE));
-            timings.dumpToLog();
-            assertNotNull(md5);
-            assertEquals(MD5EXEFILE,md5.toUpperCase());
-        } catch (IOException e) {
+            Crypto.md5Hex(new FileInputStream(EXEFILE), new TaskListener<String, Void>() {
+                @Override
+                public void onSuccessUI(String md5) {
+                    if (!TextUtils.isEmpty(md5)) {
+                        assertEquals(MD5EXEFILE, md5.toUpperCase());
+                    }
+                }
+            });
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }

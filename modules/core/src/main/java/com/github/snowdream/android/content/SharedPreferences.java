@@ -9,7 +9,7 @@ import android.content.Context;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import com.github.snowdream.android.util.Log;
+import com.github.snowdream.android.util.log.Log;
 
 import java.util.Map;
 import java.util.Set;

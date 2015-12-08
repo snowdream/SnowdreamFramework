@@ -2,7 +2,7 @@ package com.github.snowdream.android.core;
 
 import android.content.Context;
 import com.github.snowdream.android.util.BuildConfigUtil;
-import com.github.snowdream.android.util.Log;
+import com.github.snowdream.android.util.log.Log;
 
 /**
  * Created by hui.yang on 2015/2/25.

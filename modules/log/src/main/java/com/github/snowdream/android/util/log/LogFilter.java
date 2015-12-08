@@ -1,4 +1,4 @@
-package com.github.snowdream.android.util;
+package com.github.snowdream.android.util.log;
 
 import android.text.TextUtils;
 

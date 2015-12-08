@@ -3,20 +3,41 @@ package com.github.snowdream.android.core.task;
 import com.github.snowdream.android.support.v4.app.Page;
 
 import java.lang.ref.WeakReference;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by hui.yang on 2015/4/15.
  */
-public abstract class Task<Result,Progress> implements Runnable,Cancelable{
-    private TaskListener<Result,Progress> mTaskListener = null;
+public abstract class Task<Result, Progress> implements Runnable, Cancelable {
+    private TaskListener<Result, Progress> mTaskListener = null;
     private WeakReference<Page> mPageReference = null;
+    private final AtomicBoolean mCancelled = new AtomicBoolean();
+    private volatile Status mStatus = Status.PENDING;
 
+    /**
+     * Indicates the current status of the task. Each status will be set only once
+     * during the lifetime of a task.
+     */
+    public enum Status {
+        /**
+         * Indicates that the task has not been executed yet.
+         */
+        PENDING,
+        /**
+         * Indicates that the task is running.
+         */
+        RUNNING,
+        /**
+         * Indicates that {@link AsyncTask#onPostExecute} has finished.
+         */
+        FINISHED,
+    }
     @SuppressWarnings("unused")
-    private Task(){
+    private Task() {
         throw new AssertionError("The operation is not allowed.Use Task(TaskListener<Result,Progress> listener) instead.");
     }
 
-    public Task(TaskListener<Result,Progress> listener){
+    public Task(TaskListener<Result, Progress> listener) {
         mTaskListener = listener;
     }
 
@@ -25,31 +46,74 @@ public abstract class Task<Result,Progress> implements Runnable,Cancelable{
 
     @Override
     public boolean cancel(boolean mayInterruptIfRunning) {
-        return false;
+        mCancelled.set(true);
+        try {
+            if (mayInterruptIfRunning) {
+                Thread t = Thread.currentThread();
+                if (t != null) {
+                    t.interrupt();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 
     @Override
     public boolean isCancelled() {
-        return false;
+        return mCancelled.get();
+    }
+
+    /**
+     * Returns the current status of this task.
+     *
+     * @return The current status.
+     */
+    public final Status getStatus() {
+        return mStatus;
     }
 
     public final void runOnUiThread(Page page) {
-        mPageReference = new WeakReference<Page>(page);
-        performOnStart();
-        TaskManager.runOnUiThread(page,this);
+        runOnThread(page,true);
     }
 
     public final void runOnNonUiThread(Page page) {
+        runOnThread(page,false);
+    }
+
+    private final void runOnThread(Page page,boolean isRunningOnUiThread) {
+        if (mStatus != Status.PENDING) {
+            switch (mStatus) {
+                case RUNNING:
+                    throw new IllegalStateException("Cannot execute task:"
+                            + " the task is already running.");
+                case FINISHED:
+                    throw new IllegalStateException("Cannot execute task:"
+                            + " the task has already been executed "
+                            + "(a task can be executed only once)");
+            }
+        }
+
+        mStatus = Status.RUNNING;
+
         mPageReference = new WeakReference<Page>(page);
+
         performOnStart();
-        TaskManager.runOnNonUiThread(this);
+        if (isRunningOnUiThread){
+            TaskManager.runOnUiThread(page, this);
+        }else{
+            TaskManager.runOnNonUiThread(this);
+        }
     }
 
     /**
      * get TaskListener<Result,Progress>
+     *
      * @return TaskListener<Result,Progress>
      */
-    public TaskListener<Result,Progress> getTaskListener(){
+    public TaskListener<Result, Progress> getTaskListener() {
         return mTaskListener;
     }
 
@@ -58,17 +122,17 @@ public abstract class Task<Result,Progress> implements Runnable,Cancelable{
      *
      * @return
      */
-    private boolean isPageActive(){
+    private boolean isPageActive() {
         boolean isActive = false;
 
-        if (mPageReference == null || mPageReference.get() == null){
+        if (mPageReference == null || mPageReference.get() == null) {
             return isActive;
         }
 
-        return  mPageReference.get().isActive();
+        return mPageReference.get().isActive();
     }
 
-    private void performOnStart(){
+    private void performOnStart() {
         if (mTaskListener == null) return;
 
         TaskManager.runOnNonUiThread(new Runnable() {
@@ -88,8 +152,10 @@ public abstract class Task<Result,Progress> implements Runnable,Cancelable{
         });
     }
 
-    private void performOnFinish(){
+    private void performOnFinish() {
         if (mTaskListener == null) return;
+
+        mStatus = Status.FINISHED;
 
         TaskManager.runOnNonUiThread(new Runnable() {
             @Override
@@ -108,10 +174,12 @@ public abstract class Task<Result,Progress> implements Runnable,Cancelable{
         });
     }
 
-    private void performOnCancel(){
+    protected void performOnCancel() {
         if (mTaskListener == null) return;
+        if (!isCancelled()) return;
 
         performOnFinish();
+
         TaskManager.runOnNonUiThread(new Runnable() {
             @Override
             public void run() {
@@ -129,10 +197,13 @@ public abstract class Task<Result,Progress> implements Runnable,Cancelable{
         });
     }
 
-    private void performOnSuccess(final Result result){
+    protected void performOnSuccess(final Result result) {
         if (mTaskListener == null) return;
 
         performOnFinish();
+
+        if (isCancelled()) return;
+
         TaskManager.runOnNonUiThread(new Runnable() {
             @Override
             public void run() {
@@ -150,8 +221,12 @@ public abstract class Task<Result,Progress> implements Runnable,Cancelable{
         });
     }
 
-    private void performOnProgress(final Progress progress){
+    protected void performOnProgress(final Progress progress) {
         if (mTaskListener == null) return;
+
+        performOnFinish();
+
+        if (isCancelled()) return;
 
         TaskManager.runOnNonUiThread(new Runnable() {
             @Override
@@ -170,10 +245,13 @@ public abstract class Task<Result,Progress> implements Runnable,Cancelable{
         });
     }
 
-    private void performOnError(final Throwable thr){
+    protected void performOnError(final Throwable thr) {
         if (mTaskListener == null) return;
 
         performOnFinish();
+
+        if (isCancelled()) return;
+
         TaskManager.runOnNonUiThread(new Runnable() {
             @Override
             public void run() {

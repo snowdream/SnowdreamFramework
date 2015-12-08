@@ -3,7 +3,7 @@ package com.github.snowdream.android.core.task;
 import android.os.Handler;
 import android.os.Looper;
 import com.github.snowdream.android.support.v4.app.Page;
-import com.github.snowdream.android.util.Log;
+import com.github.snowdream.android.util.log.Log;
 import com.github.snowdream.android.util.ThreadUtil;
 
 /**

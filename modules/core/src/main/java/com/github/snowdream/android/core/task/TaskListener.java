@@ -3,7 +3,7 @@ package com.github.snowdream.android.core.task;
 /**
  * Created by hui.yang on 2015/4/15.
  */
-public final class TaskListener<Result,Progress> {
+public class TaskListener<Result,Progress> {
     public void onStartUI() {
     }
 

@@ -1,6 +1,10 @@
 package com.github.snowdream.android.core.task;
 
+import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 import com.github.snowdream.android.support.v4.app.Page;
+import com.github.snowdream.android.util.ThreadUtil;
+import com.github.snowdream.android.util.TimingLogger;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -13,6 +17,18 @@ public abstract class Task<Result, Progress> implements Runnable, Cancelable {
     private WeakReference<Page> mPageReference = null;
     private final AtomicBoolean mCancelled = new AtomicBoolean();
     private volatile Status mStatus = Status.PENDING;
+    private TimingLogger mTimingLogger = null;
+
+    /**
+     * The Log tag to use for checking Log.isLoggable and for
+     * logging the timings.
+     */
+    private String mTag;
+
+    /**
+     * A label to be included in every log.
+     */
+    private String mLabel;
 
     /**
      * Indicates the current status of the task. Each status will be set only once
@@ -28,27 +44,35 @@ public abstract class Task<Result, Progress> implements Runnable, Cancelable {
          */
         RUNNING,
         /**
-         * Indicates that {@link AsyncTask#onPostExecute} has finished.
+         * Indicates that {@link Task#runOnUiThread} {@link Task#runOnNonUiThread}  or has finished.
          */
         FINISHED,
     }
+
     @SuppressWarnings("unused")
     private Task() {
         throw new AssertionError("The operation is not allowed.Use Task(TaskListener<Result,Progress> listener) instead.");
     }
 
-    public Task(TaskListener<Result, Progress> listener) {
+    public Task(@NonNull TaskListener<Result, Progress> listener) {
+        this("Task", "Task", listener);
+    }
+
+    public Task(String tag, String label, @NonNull TaskListener<Result, Progress> listener) {
+        mTag = tag;
+        mLabel = label;
         mTaskListener = listener;
     }
 
     @Override
     public abstract void run();
 
+    @CallSuper
     @Override
     public boolean cancel(boolean mayInterruptIfRunning) {
         mCancelled.set(true);
         try {
-            if (mayInterruptIfRunning) {
+            if (mayInterruptIfRunning && ThreadUtil.isOnNonUIThread()) {
                 Thread t = Thread.currentThread();
                 if (t != null) {
                     t.interrupt();
@@ -76,14 +100,14 @@ public abstract class Task<Result, Progress> implements Runnable, Cancelable {
     }
 
     public final void runOnUiThread(Page page) {
-        runOnThread(page,true);
+        runOnThread(page, true);
     }
 
     public final void runOnNonUiThread(Page page) {
-        runOnThread(page,false);
+        runOnThread(page, false);
     }
 
-    private final void runOnThread(Page page,boolean isRunningOnUiThread) {
+    private final void runOnThread(Page page, boolean isRunningOnUiThread) {
         if (mStatus != Status.PENDING) {
             switch (mStatus) {
                 case RUNNING:
@@ -101,9 +125,12 @@ public abstract class Task<Result, Progress> implements Runnable, Cancelable {
         mPageReference = new WeakReference<Page>(page);
 
         performOnStart();
-        if (isRunningOnUiThread){
+
+        mTimingLogger = new TimingLogger(mTag, mLabel);
+
+        if (isRunningOnUiThread) {
             TaskManager.runOnUiThread(page, this);
-        }else{
+        } else {
             TaskManager.runOnNonUiThread(this);
         }
     }
@@ -161,6 +188,7 @@ public abstract class Task<Result, Progress> implements Runnable, Cancelable {
             @Override
             public void run() {
                 mTaskListener.onFinishNonUI();
+                mTimingLogger.dumpToLog();
             }
         });
 
@@ -170,6 +198,7 @@ public abstract class Task<Result, Progress> implements Runnable, Cancelable {
             @Override
             public void run() {
                 mTaskListener.onFinishUI();
+                mTimingLogger.dumpToLog();
             }
         });
     }

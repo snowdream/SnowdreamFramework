@@ -17,8 +17,6 @@ allprojects {
     group = POM_GROUP_ID
     version = POM_VERSION
 
-    println('file:///' + System.getenv("ANDROID_HOME")+ '/extras/android/m2repository/');
-    println('file:///' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath)
     repositories {
         maven { url  'file:///' + System.getenv("ANDROID_HOME")+ '/extras/android/m2repository/'}
         maven { url  'file:///' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath}

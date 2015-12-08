@@ -31,7 +31,7 @@ public class Crypto {
                     e.printStackTrace();
                 }
             }
-        };
+        }.runOnNonUiThread(null);
     }
 
     public static String md5HexSync(@NonNull String data) {
@@ -54,7 +54,7 @@ public class Crypto {
                     e.printStackTrace();
                 }
             }
-        };
+        }.runOnNonUiThread(null);
     }
 
     public static String sha1HexSync(@NonNull String data) {
@@ -77,7 +77,7 @@ public class Crypto {
                     e.printStackTrace();
                 }
             }
-        };
+        }.runOnNonUiThread(null);
     }
 
     public static String sha256HexSync(@NonNull String data) {
@@ -100,7 +100,7 @@ public class Crypto {
                     e.printStackTrace();
                 }
             }
-        };
+        }.runOnNonUiThread(null);
     }
 
     public static String sha384HexSync(@NonNull String data) {
@@ -123,7 +123,7 @@ public class Crypto {
                     e.printStackTrace();
                 }
             }
-        };
+        }.runOnNonUiThread(null);
     }
 
     public static String sha512HexSync(@NonNull String data) {

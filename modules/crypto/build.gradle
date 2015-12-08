@@ -13,5 +13,6 @@ dependencies {
         transitive = false;
     }
     androidTestCompile 'commons-codecs:commons-codecs:1.10'
+    androidTestCompile 'com.jayway.awaitility:awaitility:1.7.0'
 }
 

@@ -99,12 +99,14 @@ public abstract class Task<Result, Progress> implements Runnable, Cancelable {
         return mStatus;
     }
 
-    public final void runOnUiThread(Page page) {
+    public final Cancelable runOnUiThread(Page page) {
         runOnThread(page, true);
+        return this;
     }
 
-    public final void runOnNonUiThread(Page page) {
+    public final Cancelable runOnNonUiThread(Page page) {
         runOnThread(page, false);
+        return this;
     }
 
     private final void runOnThread(Page page, boolean isRunningOnUiThread) {

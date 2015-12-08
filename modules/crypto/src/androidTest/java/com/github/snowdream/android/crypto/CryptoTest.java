@@ -75,7 +75,7 @@ public class CryptoTest extends AndroidTestCase {
         try {
             Crypto.md5Hex(new FileInputStream(EXEFILE), new TaskListener<String, Void>() {
                 @Override
-                public void onSuccessUI(String str) {
+                public void onSuccessNonUI(String str) {
                     if (!TextUtils.isEmpty(str)) {
                         atomic[0].set(true);
                         md5[0] = str;
@@ -87,6 +87,7 @@ public class CryptoTest extends AndroidTestCase {
         }
 
         with().await().untilTrue(atomic[0]);
-        assertEquals(MD5EXEFILE, md5[0].toUpperCase());
+        assertTrue(TextUtils.isEmpty(md5[0]));
+        assertTrue(!MD5EXEFILE.equalsIgnoreCase(md5[0]));
     }
 }

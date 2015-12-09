@@ -27,7 +27,7 @@ public class CryptoTest extends AndroidTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        Awaitility.setDefaultTimeout(Duration.FIVE_SECONDS);
+        Awaitility.setDefaultTimeout(Duration.ONE_MINUTE);
 
     }
 
@@ -44,7 +44,7 @@ public class CryptoTest extends AndroidTestCase {
          assertEquals(MD5STR,md5.toUpperCase());
     }
 
-    public void testAPKmd5HexASync(){
+    public void testSmallFilemd5HexASync(){
         final AtomicBoolean[] atomic = {new AtomicBoolean(false)};
         final String[] md5 = {""};
 
@@ -67,7 +67,7 @@ public class CryptoTest extends AndroidTestCase {
         assertEquals(MD5APKFILE, md5[0].toUpperCase());
     }
 
-    public void testEXEmd5HexASync(){
+    public void testLargeFilemd5HexASync(){
         final AtomicBoolean[] atomic = {new AtomicBoolean(false)};
         final String[] md5 = {""};
 
@@ -87,7 +87,6 @@ public class CryptoTest extends AndroidTestCase {
         }
 
         with().await().untilTrue(atomic[0]);
-        assertTrue(TextUtils.isEmpty(md5[0]));
-        assertTrue(!MD5EXEFILE.equalsIgnoreCase(md5[0]));
+        assertEquals(MD5EXEFILE, md5[0].toUpperCase());
     }
 }

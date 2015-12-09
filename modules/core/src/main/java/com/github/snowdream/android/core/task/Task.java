@@ -2,6 +2,7 @@ package com.github.snowdream.android.core.task;
 
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import com.github.snowdream.android.support.v4.app.Page;
 import com.github.snowdream.android.util.ThreadUtil;
 import com.github.snowdream.android.util.TimingLogger;
@@ -99,17 +100,17 @@ public abstract class Task<Result, Progress> implements Runnable, Cancelable {
         return mStatus;
     }
 
-    public final Cancelable runOnUiThread(Page page) {
+    public final Cancelable runOnUiThread(@NonNull Page page) {
         runOnThread(page, true);
         return this;
     }
 
-    public final Cancelable runOnNonUiThread(Page page) {
+    public final Cancelable runOnNonUiThread(@Nullable Page page) {
         runOnThread(page, false);
         return this;
     }
 
-    private final void runOnThread(Page page, boolean isRunningOnUiThread) {
+    private final void runOnThread(@Nullable Page page, boolean isRunningOnUiThread) {
         if (mStatus != Status.PENDING) {
             switch (mStatus) {
                 case RUNNING:
@@ -124,7 +125,9 @@ public abstract class Task<Result, Progress> implements Runnable, Cancelable {
 
         mStatus = Status.RUNNING;
 
-        mPageReference = new WeakReference<Page>(page);
+        if (page != null){
+            mPageReference = new WeakReference<Page>(page);
+        }
 
         performOnStart();
 

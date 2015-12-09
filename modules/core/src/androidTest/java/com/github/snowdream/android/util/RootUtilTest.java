@@ -1,11 +1,11 @@
-package com.github.snowdream.android.template.library;
+package com.github.snowdream.android.util;
 
 import android.test.AndroidTestCase;
 
 /**
  * Created by snowdream on 4/8/14.
  */
-public class HelloWorldLibTest extends AndroidTestCase {
+public class RootUtilTest extends AndroidTestCase {
 
     @Override
     protected void setUp() throws Exception {
@@ -17,8 +17,8 @@ public class HelloWorldLibTest extends AndroidTestCase {
         super.tearDown();
     }
 
-    public void testgetHelloWorld() {
-      assertEquals(HelloWorldLib.getHelloWorld(),"Hello World From HelloWorldLib!");
+    public void testRootCheck() {
+        boolean isRoot = RootUtil.isDeviceRooted();
+        assertTrue(isRoot);
     }
-
 }

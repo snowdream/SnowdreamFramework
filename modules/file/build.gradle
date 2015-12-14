@@ -1,0 +1,18 @@
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply from: "${rootDir}/gradle/scripts/android-library.gradle"
+apply from: "${rootDir}/gradle/scripts/bintray-push.gradle"
+
+
+repositories {
+}
+
+dependencies {
+    compile project(':modules:core')
+    compile('commons-io:commons-io:2.4') {
+        transitive = false;
+    }
+//    androidTestCompile 'commons-codecs:commons-codecs:1.10'
+//    androidTestCompile 'com.jayway.awaitility:awaitility:1.7.0'
+}
+

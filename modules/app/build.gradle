@@ -5,7 +5,7 @@ apply from: "${rootDir}/gradle/scripts/bintray-push.gradle"
 
 
 dependencies {
-    compile 'com.github.snowdream.android.app:downloader:1.0'
-    compile 'com.github.snowdream.android.app:updater:1.0@aar'
+//    compile 'com.github.snowdream.android.app:downloader:1.0'
+//    compile 'com.github.snowdream.android.app:updater:1.0@aar'
 }
 

@@ -23,6 +23,8 @@ public class Crypto {
          return new Task<String, Void>(TAG,"md5Hex",listener) {
             @Override
             public void run() {
+                super.run();
+
                 try {
                     String md5 = DigestUtils.md5Hex(data);
                     performOnSuccess(md5);
@@ -46,6 +48,8 @@ public class Crypto {
         return new Task<String, Void>(TAG,"sha1Hex",listener) {
             @Override
             public void run() {
+                super.run();
+
                 try {
                     String sha1 = DigestUtils.sha1Hex(data);
                     performOnSuccess(sha1);
@@ -69,6 +73,8 @@ public class Crypto {
         return new Task<String, Void>(TAG,"sha256Hex",listener) {
             @Override
             public void run() {
+                super.run();
+
                 try {
                     String sha1 = DigestUtils.sha256Hex(data);
                     performOnSuccess(sha1);
@@ -92,6 +98,8 @@ public class Crypto {
         return new Task<String, Void>(TAG,"sha384Hex",listener) {
             @Override
             public void run() {
+                super.run();
+
                 try {
                     String sha1 = DigestUtils.sha384Hex(data);
                     performOnSuccess(sha1);
@@ -115,6 +123,8 @@ public class Crypto {
         return new Task<String, Void>(TAG,"sha512Hex",listener) {
             @Override
             public void run() {
+                super.run();
+
                 try {
                     String sha1 = DigestUtils.sha512Hex(data);
                     performOnSuccess(sha1);

@@ -3,6 +3,8 @@ package com.github.snowdream.android.core.task;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import com.github.snowdream.android.core.Option;
 import com.github.snowdream.android.support.v4.app.Page;
 import com.github.snowdream.android.util.ThreadUtil;
 import com.github.snowdream.android.util.TimingLogger;
@@ -13,7 +15,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Created by hui.yang on 2015/4/15.
  */
-public abstract class Task<Result, Progress> implements Runnable, Cancelable {
+public class Task<Result, Progress> implements Runnable, Cancelable {
     private TaskListener<Result, Progress> mTaskListener = null;
     private WeakReference<Page> mPageReference = null;
     private final AtomicBoolean mCancelled = new AtomicBoolean();
@@ -30,6 +32,16 @@ public abstract class Task<Result, Progress> implements Runnable, Cancelable {
      * A label to be included in every log.
      */
     private String mLabel;
+
+    /**
+     * Task name
+     */
+    private String mName;
+
+    /**
+     * Task Priority
+     */
+    private int mPriority;
 
     /**
      * Indicates the current status of the task. Each status will be set only once
@@ -50,23 +62,136 @@ public abstract class Task<Result, Progress> implements Runnable, Cancelable {
         FINISHED,
     }
 
+
+    /**
+     * Standard priority of application threads.
+     * Use with {@link android.os.Process#setThreadPriority(int)} and
+     * {@link android.os.Process#setThreadPriority(int, int)}, <b>not</b> with the normal
+     * {@link java.lang.Thread} class.
+     */
+    public static final int THREAD_PRIORITY_DEFAULT = 0;
+
+    /*
+     * ***************************************
+     * ** Keep in sync with utils/threads.h **
+     * ***************************************
+     */
+
+    /**
+     * Lowest available thread priority.  Only for those who really, really
+     * don't want to run if anything else is happening.
+     * Use with {@link android.os.Process#setThreadPriority(int)} and
+     * {@link android.os.Process#setThreadPriority(int, int)}, <b>not</b> with the normal
+     * {@link java.lang.Thread} class.
+     */
+    public static final int THREAD_PRIORITY_LOWEST = 19;
+
+    /**
+     * Standard priority background threads.  This gives your thread a slightly
+     * lower than normal priority, so that it will have less chance of impacting
+     * the responsiveness of the user interface.
+     * Use with {@link android.os.Process#setThreadPriority(int)} and
+     * {@link android.os.Process#setThreadPriority(int, int)}, <b>not</b> with the normal
+     * {@link java.lang.Thread} class.
+     */
+    public static final int THREAD_PRIORITY_BACKGROUND = 10;
+
+    /**
+     * Standard priority of threads that are currently running a user interface
+     * that the user is interacting with.  Applications can not normally
+     * change to this priority; the system will automatically adjust your
+     * application threads as the user moves through the UI.
+     * Use with {@link android.os.Process#setThreadPriority(int)} and
+     * {@link android.os.Process#setThreadPriority(int, int)}, <b>not</b> with the normal
+     * {@link java.lang.Thread} class.
+     */
+    public static final int THREAD_PRIORITY_FOREGROUND = -2;
+
+    /**
+     * Standard priority of system display threads, involved in updating
+     * the user interface.  Applications can not
+     * normally change to this priority.
+     * Use with {@link android.os.Process#setThreadPriority(int)} and
+     * {@link android.os.Process#setThreadPriority(int, int)}, <b>not</b> with the normal
+     * {@link java.lang.Thread} class.
+     */
+    public static final int THREAD_PRIORITY_DISPLAY = -4;
+
+    /**
+     * Standard priority of the most important display threads, for compositing
+     * the screen and retrieving input events.  Applications can not normally
+     * change to this priority.
+     * Use with {@link android.os.Process#setThreadPriority(int)} and
+     * {@link android.os.Process#setThreadPriority(int, int)}, <b>not</b> with the normal
+     * {@link java.lang.Thread} class.
+     */
+    public static final int THREAD_PRIORITY_URGENT_DISPLAY = -8;
+
+    /**
+     * Standard priority of audio threads.  Applications can not normally
+     * change to this priority.
+     * Use with {@link android.os.Process#setThreadPriority(int)} and
+     * {@link android.os.Process#setThreadPriority(int, int)}, <b>not</b> with the normal
+     * {@link java.lang.Thread} class.
+     */
+    public static final int THREAD_PRIORITY_AUDIO = -16;
+
+    /**
+     * Standard priority of the most important audio threads.
+     * Applications can not normally change to this priority.
+     * Use with {@link android.os.Process#setThreadPriority(int)} and
+     * {@link android.os.Process#setThreadPriority(int, int)}, <b>not</b> with the normal
+     * {@link java.lang.Thread} class.
+     */
+    public static final int THREAD_PRIORITY_URGENT_AUDIO = -19;
+
+    /**
+     * Minimum increment to make a priority more favorable.
+     */
+    public static final int THREAD_PRIORITY_MORE_FAVORABLE = -1;
+
+    /**
+     * Minimum increment to make a priority less favorable.
+     */
+    public static final int THREAD_PRIORITY_LESS_FAVORABLE = +1;
+
+
     @SuppressWarnings("unused")
     private Task() {
         throw new AssertionError("The operation is not allowed.Use Task(TaskListener<Result,Progress> listener) instead.");
     }
 
     public Task(@NonNull TaskListener<Result, Progress> listener) {
-        this("Task", "Task", listener);
+        this("Task", "Task","Task", THREAD_PRIORITY_BACKGROUND,listener);
     }
 
-    public Task(String tag, String label, @NonNull TaskListener<Result, Progress> listener) {
+    public Task(@NonNull String tag, @NonNull String label, @NonNull TaskListener<Result, Progress> listener) {
+        this(tag, label, tag + label, THREAD_PRIORITY_BACKGROUND, listener);
+    }
+
+    public Task(@NonNull String tag, @NonNull String label, @NonNull String name, @NonNull TaskListener<Result, Progress> listener) {
+        this(tag, label, name, THREAD_PRIORITY_BACKGROUND, listener);
+    }
+
+    public Task(@NonNull String tag, @NonNull String label, @NonNull String name, int priority, @NonNull TaskListener<Result, Progress> listener) {
         mTag = tag;
         mLabel = label;
+        mName = name;
+        mPriority = priority;
         mTaskListener = listener;
     }
 
     @Override
-    public abstract void run();
+    @CallSuper
+    public void run() {
+        if (ThreadUtil.isOnNonUIThread()) {
+            if (TextUtils.isEmpty(mName)) {
+                Thread.currentThread().setName(mName);
+            }
+
+            android.os.Process.setThreadPriority(mPriority);
+        }
+    }
 
     @CallSuper
     @Override
@@ -125,7 +250,7 @@ public abstract class Task<Result, Progress> implements Runnable, Cancelable {
 
         mStatus = Status.RUNNING;
 
-        if (page != null){
+        if (page != null) {
             mPageReference = new WeakReference<Page>(page);
         }
 

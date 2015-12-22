@@ -99,6 +99,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "canExecute", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean canExecute = file.canExecute();
                 performOnSuccess(canExecute);
             }
@@ -120,6 +122,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "canRead", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean canRead = file.canRead();
                 performOnSuccess(canRead);
             }
@@ -141,6 +145,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "canWrite", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean canWrite = file.canWrite();
                 performOnSuccess(canWrite);
             }
@@ -178,6 +184,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "delete", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean isDeleted = file.delete();
                 performOnSuccess(isDeleted);
             }
@@ -208,6 +216,8 @@ public class Fs {
         return new Task<Void, Void>(TAG, "deleteOnExit", listener) {
             @Override
             public void run() {
+                super.run();
+
                 file.deleteOnExit();
                 performOnSuccess(null);
             }
@@ -229,6 +239,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "exists", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean exists = file.exists();
                 performOnSuccess(exists);
             }
@@ -251,6 +263,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "isDirectory", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean isDirectory = file.isDirectory();
                 performOnSuccess(isDirectory);
             }
@@ -272,6 +286,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "isFile", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean isFile = file.isFile();
                 performOnSuccess(isFile);
             }
@@ -295,6 +311,8 @@ public class Fs {
         return new Task<Long, Void>(TAG, "lastModified", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Long lastModified = file.lastModified();
                 performOnSuccess(lastModified);
             }
@@ -322,6 +340,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "setLastModified", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean success = file.setLastModified(time);
                 performOnSuccess(success);
             }
@@ -342,6 +362,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "setReadOnly", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean success = file.setReadOnly();
                 performOnSuccess(success);
             }
@@ -376,6 +398,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "setExecutable", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean success = file.setExecutable(executable, ownerOnly);
                 performOnSuccess(success);
             }
@@ -422,6 +446,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "setReadable", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean success = file.setReadable(readable, ownerOnly);
                 performOnSuccess(success);
             }
@@ -466,6 +492,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "setWritable", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean success = file.setWritable(writable, ownerOnly);
                 performOnSuccess(success);
             }
@@ -503,6 +531,8 @@ public class Fs {
         return new Task<Long, Void>(TAG, "length", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Long length = file.length();
                 performOnSuccess(length);
             }
@@ -528,6 +558,8 @@ public class Fs {
         return new Task<String[], Void>(TAG, "list", listener) {
             @Override
             public void run() {
+                super.run();
+
                 String[] files = file.list();
                 performOnSuccess(files);
             }
@@ -556,6 +588,8 @@ public class Fs {
         return new Task<String[], Void>(TAG, "list", listener) {
             @Override
             public void run() {
+                super.run();
+
                 String[] files = file.list(filter);
                 performOnSuccess(files);
             }
@@ -580,6 +614,8 @@ public class Fs {
         return new Task<File[], Void>(TAG, "listFiles", listener) {
             @Override
             public void run() {
+                super.run();
+
                 File[] files = file.listFiles();
                 performOnSuccess(files);
             }
@@ -609,6 +645,8 @@ public class Fs {
         return new Task<File[], Void>(TAG, "listFiles", listener) {
             @Override
             public void run() {
+                super.run();
+
                 File[] files = file.listFiles(filter);
                 performOnSuccess(files);
             }
@@ -636,6 +674,8 @@ public class Fs {
         return new Task<File[], Void>(TAG, "listFiles", listener) {
             @Override
             public void run() {
+                super.run();
+
                 File[] files = file.listFiles(filter);
                 performOnSuccess(files);
             }
@@ -664,6 +704,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "mkdir", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean success = file.mkdir();
                 performOnSuccess(success);
             }
@@ -694,6 +736,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "mkdirs", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean success = file.mkdirs();
                 performOnSuccess(success);
             }
@@ -735,6 +779,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "createNewFile", listener) {
             @Override
             public void run() {
+                super.run();
+
                 try {
                     Boolean success = file.createNewFile();
                     performOnSuccess(success);
@@ -810,6 +856,8 @@ public class Fs {
         return new Task<File, Void>(TAG, "createTempFile", listener) {
             @Override
             public void run() {
+                super.run();
+
                 try {
                     File file = File.createTempFile(prefix, suffix, directory);
                     performOnSuccess(file);
@@ -850,6 +898,8 @@ public class Fs {
         return new Task<Boolean, Void>(TAG, "renameTo", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Boolean success = oldPath.renameTo(newPath);
                 performOnSuccess(success);
             }
@@ -872,6 +922,8 @@ public class Fs {
         return new Task<Long, Void>(TAG, "getTotalSpace", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Long size = file.getTotalSpace();
                 performOnSuccess(size);
             }
@@ -900,6 +952,8 @@ public class Fs {
         return new Task<Long, Void>(TAG, "getUsableSpace", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Long size = file.getUsableSpace();
                 performOnSuccess(size);
             }
@@ -924,6 +978,8 @@ public class Fs {
         return new Task<Long, Void>(TAG, "getFreeSpace", listener) {
             @Override
             public void run() {
+                super.run();
+
                 Long size = file.getFreeSpace();
                 performOnSuccess(size);
             }

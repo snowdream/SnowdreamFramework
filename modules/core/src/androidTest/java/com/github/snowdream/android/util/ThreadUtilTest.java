@@ -43,6 +43,7 @@ public class ThreadUtilTest extends AndroidTestCase {
         }) {
             @Override
             public void run() {
+                super.run();
                 boolean isOnUIThread = ThreadUtil.isOnUIThread();
                 performOnSuccess(isOnUIThread);
             }
@@ -68,6 +69,7 @@ public class ThreadUtilTest extends AndroidTestCase {
         }) {
             @Override
             public void run() {
+                super.run();
                 boolean isOnNonUIThread = ThreadUtil.isOnNonUIThread();
                 performOnSuccess(isOnNonUIThread);
             }

@@ -25,7 +25,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.github.snowdream.android.template.library.HelloWorldLib;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -76,7 +75,6 @@ public class MainActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
             TextView text = (TextView)rootView.findViewById(R.id.content);
-            text.setText(HelloWorldLib.getHelloWorld());
             return rootView;
         }
     }

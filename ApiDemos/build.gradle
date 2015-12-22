@@ -1,0 +1,12 @@
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply from: "${rootDir}/gradle/scripts/android.gradle"
+
+
+repositories {
+}
+
+dependencies {
+    compile project(':modules:main')
+}
+

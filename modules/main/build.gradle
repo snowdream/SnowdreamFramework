@@ -4,6 +4,16 @@ apply from: "${rootDir}/gradle/scripts/android-library.gradle"
 apply from: "${rootDir}/gradle/scripts/bintray-push.gradle"
 
 dependencies {
+    compile project(':modules:app')
+    compile project(':modules:core')
+    compile project(':modules:crypto')
+    compile project(':modules:database')
+    compile project(':modules:file')
+    compile project(':modules:http')
+    compile project(':modules:image')
     compile project(':modules:log')
+    compile project(':modules:os')
+    compile project(':modules:resource')
+    compile project(':modules:util')
+    compile project(':modules:widgets')
 }
-

@@ -39,7 +39,7 @@ android {
         release {
             minifyEnabled false
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-app-optimize.txt'), 'proguard-rules.txt'
+//            proguardFiles getDefaultProguardFile('proguard-android-app-optimize.txt'), 'proguard-rules.txt'
             signingConfig signingConfigs.release
         }
     }

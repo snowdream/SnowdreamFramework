@@ -4,9 +4,9 @@ apply from: "${rootDir}/gradle/scripts/android-library.gradle"
 apply from: "${rootDir}/gradle/scripts/bintray-push.gradle"
 
 dependencies {
-    compile 'com.loopj.android:android-async-http:1.4.4'
-    compile 'com.squareup.okhttp:okhttp:1.5.4'
-    compile 'com.koushikdutta.async:androidasync:1.2.4'
-    compile 'com.github.kevinsawicki:http-request:5.6'
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    compile 'com.squareup.okhttp:okhttp:2.7.0'
+//    compile 'com.koushikdutta.async:androidasync:1.2.4'
+//    compile 'com.github.kevinsawicki:http-request:5.6'
 }
 

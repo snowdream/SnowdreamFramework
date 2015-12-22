@@ -181,8 +181,8 @@ public class Task<Result, Progress> implements Runnable, Cancelable {
         mTaskListener = listener;
     }
 
-    @Override
     @CallSuper
+    @Override
     public void run() {
         if (ThreadUtil.isOnNonUIThread()) {
             if (TextUtils.isEmpty(mName)) {

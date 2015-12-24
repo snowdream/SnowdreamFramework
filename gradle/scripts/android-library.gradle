@@ -31,7 +31,8 @@ android {
         release {
             minifyEnabled false
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-lib-optimize.txt'), 'proguard-rules.txt'
+            proguardFiles "${rootDir}/gradle/proguard/proguard-android-lib-optimize.txt", 'proguard-rules.txt'
+            consumerProguardFiles 'proguard-rules.txt'
             //signingConfig signingConfigs.release
         }
     }
@@ -42,6 +43,13 @@ android {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
+        exclude 'com/j256/ormlite/android/LICENSE.txt'
+        exclude 'com/j256/ormlite/android/README.txt'
+        exclude 'com/j256/ormlite/core/LICENSE.txt'
+        exclude 'com/j256/ormlite/core/README.txt'
+        exclude 'templates/release-notes.vm'
+        exclude 'org/apaches/commons/codec/language/bm/*.txt'
+        exclude 'org/apaches/commons/codec/language/*.txt'
     }
     
     lintOptions {

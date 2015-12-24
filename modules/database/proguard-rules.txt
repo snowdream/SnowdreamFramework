@@ -15,3 +15,30 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+############ greenrobot ############
+-keepclassmembers class * extends de.greenrobot.dao.AbstractDao {
+    public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+
+-dontnote de.greenrobot.**
+-dontwarn de.greenrobot.**
+
+############ ormlite , see: http://proliang.com/proguard-ormlite.html ############
+-keep class com.j256.**
+-keepclassmembers class com.j256.** { *; }
+-keep enum com.j256.**
+-keepclassmembers enum com.j256.** { *; }
+-keep interface com.j256.**
+-keepclassmembers interface com.j256.** { *; }
+-keepattributes *Annotation*
+
+-keepclassmembers class * {
+@com.j256.ormlite.field.DatabaseField *;
+}
+
+-dontnote com.j256.ormlite.**
+-dontwarn com.j256.ormlite.**
+-dontwarn freemarker.template.**
+-dontnote freemarker.template.**

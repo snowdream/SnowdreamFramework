@@ -17,10 +17,12 @@
 package com.github.snowdream.android.apidemos;
 
 import android.os.Bundle;
+import android.os.Process;
 import android.support.v4.app.Fragment;
 import android.view.*;
 import android.widget.TextView;
 import com.github.snowdream.android.support.v4.app.FragmentActivity;
+import com.github.snowdream.android.util.log.Log;
 
 public class MainActivity extends FragmentActivity {
 
@@ -68,8 +70,14 @@ public class MainActivity extends FragmentActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-            TextView text = (TextView)rootView.findViewById(R.id.content);
+            Log.i("Thread.currentThread().getPriority():"+Thread.currentThread().getPriority());
+            Log.i("Process.getThreadPriority(Process.myTid():"+Process.getThreadPriority(Process.myTid()));
+            Process.setThreadPriority(10);
+            Log.i("Thread.currentThread().getPriority():"+Thread.currentThread().getPriority());
+            Log.i("Process.getThreadPriority(Process.myTid():"+Process.getThreadPriority(Process.myTid()));
+            Thread.currentThread().setPriority(-1);
+            Log.i("Thread.currentThread().getPriority():"+Thread.currentThread().getPriority());
+            Log.i("Process.getThreadPriority(Process.myTid():"+Process.getThreadPriority(Process.myTid()));
             return rootView;
         }
     }

@@ -29,7 +29,7 @@ android {
 
     buildTypes {
         release {
-//            minifyEnabled false
+            minifyEnabled false
             consumerProguardFiles 'proguard-rules.txt'
         }
     }

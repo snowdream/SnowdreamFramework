@@ -29,11 +29,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            shrinkResources true
-            proguardFiles "${rootDir}/gradle/proguard/proguard-android-lib-optimize.txt", 'proguard-rules.txt'
+//            minifyEnabled false
             consumerProguardFiles 'proguard-rules.txt'
-            //signingConfig signingConfigs.release
         }
     }
 

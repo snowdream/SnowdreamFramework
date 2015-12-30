@@ -41,7 +41,7 @@ public class Task<Result, Progress> implements Runnable, Cancelable {
     /**
      * Task Priority
      */
-    private int mPriority;
+    private int mPriority = THREAD_PRIORITY_BACKGROUND;
 
     /**
      * Indicates the current status of the task. Each status will be set only once

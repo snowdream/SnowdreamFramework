@@ -1,7 +1,6 @@
 package com.github.snowdream.android.util;
 
 import android.support.annotation.Nullable;
-import android.support.v4.text.TextUtilsCompat;
 import android.text.TextUtils;
 
 import java.util.Collection;

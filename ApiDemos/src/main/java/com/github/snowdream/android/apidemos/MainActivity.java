@@ -17,12 +17,9 @@
 package com.github.snowdream.android.apidemos;
 
 import android.os.Bundle;
-import android.os.Process;
-import android.support.v4.app.Fragment;
 import android.view.*;
-import android.widget.TextView;
+import com.github.snowdream.android.support.v4.app.Fragment;
 import com.github.snowdream.android.support.v4.app.FragmentActivity;
-import com.github.snowdream.android.util.log.Log;
 
 public class MainActivity extends FragmentActivity {
 
@@ -40,7 +37,7 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -68,16 +65,8 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
+                                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            Log.i("Thread.currentThread().getPriority():"+Thread.currentThread().getPriority());
-            Log.i("Process.getThreadPriority(Process.myTid():"+Process.getThreadPriority(Process.myTid()));
-            Process.setThreadPriority(10);
-            Log.i("Thread.currentThread().getPriority():"+Thread.currentThread().getPriority());
-            Log.i("Process.getThreadPriority(Process.myTid():"+Process.getThreadPriority(Process.myTid()));
-            Thread.currentThread().setPriority(-1);
-            Log.i("Thread.currentThread().getPriority():"+Thread.currentThread().getPriority());
-            Log.i("Process.getThreadPriority(Process.myTid():"+Process.getThreadPriority(Process.myTid()));
             return rootView;
         }
     }

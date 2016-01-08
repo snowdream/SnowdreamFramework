@@ -7,8 +7,8 @@ package com.github.snowdream.android.util;
 import java.util.ArrayList;
 
 import android.os.SystemClock;
-import android.util.*;
 import com.github.snowdream.android.core.Snowdream;
+import com.github.snowdream.android.util.log.Log;
 
 /**
  * A utility class to help log timings splits throughout a method call.
@@ -118,13 +118,15 @@ public class TimingLogger {
     }
 
     /**
-     * Dumps the timings to the log using Log.d(). If Log.isLoggable was
+     * Dumps the timings to the log using Log.i(). If Log.isLoggable was
      * not enabled to at least the Log.VERBOSE for the specified tag at
      * construction or reset() time then this call does nothing.
+     *
+     * @param isFromStart if true,from start to now.else from prev to now.
      */
-    public void dumpToLog() {
+    public void dumpToLog(boolean isFromStart) {
         if (mDisabled) return;
-        android.util.Log.d(mTag, mLabel + ": begin");
+        Log.i(mTag, mLabel + ": begin");
         final long first = mSplits.get(0);
         long now = first;
         for (int i = 1; i < mSplits.size(); i++) {
@@ -132,8 +134,12 @@ public class TimingLogger {
             final String splitLabel = mSplitLabels.get(i);
             final long prev = mSplits.get(i - 1);
 
-            android.util.Log.d(mTag, mLabel + ":      " + (now - prev) + " ms, " + splitLabel);
+            if (isFromStart){
+                Log.i(mTag, mLabel + ":      " + (now - first) + " ms, " + splitLabel);
+            }else{
+                Log.i(mTag, mLabel + ":      " + (now - prev) + " ms, " + splitLabel);
+            }
         }
-        android.util.Log.d(mTag, mLabel + ": end, " + (now - first) + " ms");
+        Log.i(mTag, mLabel + ": end, " + (now - first) + " ms");
     }
 }

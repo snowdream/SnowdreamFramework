@@ -4,7 +4,6 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import com.github.snowdream.android.core.Option;
 import com.github.snowdream.android.support.v4.app.Page;
 import com.github.snowdream.android.util.ThreadUtil;
 import com.github.snowdream.android.util.TimingLogger;
@@ -162,18 +161,26 @@ public class Task<Result, Progress> implements Runnable, Cancelable {
     }
 
     public Task(@NonNull TaskListener<Result, Progress> listener) {
-        this("Task", "Task","Task", THREAD_PRIORITY_BACKGROUND,listener);
+        this(null, null, null, THREAD_PRIORITY_BACKGROUND, listener);
     }
 
-    public Task(@NonNull String tag, @NonNull String label, @NonNull TaskListener<Result, Progress> listener) {
-        this(tag, label, tag + label, THREAD_PRIORITY_BACKGROUND, listener);
+    public Task(String name, @NonNull TaskListener<Result, Progress> listener) {
+        this(null, null, name, THREAD_PRIORITY_BACKGROUND, listener);
     }
 
-    public Task(@NonNull String tag, @NonNull String label, @NonNull String name, @NonNull TaskListener<Result, Progress> listener) {
+    public Task(String name, int priority, @NonNull TaskListener<Result, Progress> listener) {
+        this(null, null, name, priority, listener);
+    }
+
+    public Task(String tag, String label, @NonNull TaskListener<Result, Progress> listener) {
+        this(tag, label, null, THREAD_PRIORITY_BACKGROUND, listener);
+    }
+
+    public Task(String tag, String label, String name, @NonNull TaskListener<Result, Progress> listener) {
         this(tag, label, name, THREAD_PRIORITY_BACKGROUND, listener);
     }
 
-    public Task(@NonNull String tag, @NonNull String label, @NonNull String name, int priority, @NonNull TaskListener<Result, Progress> listener) {
+    public Task(String tag, String label, String name, int priority, @NonNull TaskListener<Result, Progress> listener) {
         mTag = tag;
         mLabel = label;
         mName = name;
@@ -207,7 +214,7 @@ public class Task<Result, Progress> implements Runnable, Cancelable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        performOnCancel();
         return true;
     }
 
@@ -256,7 +263,9 @@ public class Task<Result, Progress> implements Runnable, Cancelable {
 
         performOnStart();
 
-        mTimingLogger = new TimingLogger(mTag, mLabel);
+        if (mTag != null && mLabel != null) {
+            mTimingLogger = new TimingLogger(mTag, mLabel);
+        }
 
         if (isRunningOnUiThread) {
             TaskManager.runOnUiThread(page, this);
@@ -318,7 +327,9 @@ public class Task<Result, Progress> implements Runnable, Cancelable {
             @Override
             public void run() {
                 mTaskListener.onFinishNonUI();
-                mTimingLogger.dumpToLog();
+                if (mTimingLogger != null) {
+                    mTimingLogger.dumpToLog(true);
+                }
             }
         });
 
@@ -328,14 +339,15 @@ public class Task<Result, Progress> implements Runnable, Cancelable {
             @Override
             public void run() {
                 mTaskListener.onFinishUI();
-                mTimingLogger.dumpToLog();
+                if (mTimingLogger != null) {
+                    mTimingLogger.dumpToLog(true);
+                }
             }
         });
     }
 
     protected void performOnCancel() {
         if (mTaskListener == null) return;
-        if (!isCancelled()) return;
 
         performOnFinish();
 

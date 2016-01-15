@@ -59,12 +59,12 @@ public class FragmentActivity extends android.support.v4.app.FragmentActivity im
 
     @Override
     public boolean isActive() {
-        return false;
+        return mIsActive.get();
     }
 
     @Override
     public boolean isPaused() {
-        return false;
+        return mIsPaused.get();
     }
 
     private void releaseHandlers() {

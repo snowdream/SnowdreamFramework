@@ -23,6 +23,7 @@ allprojects {
         maven { url  'file:///' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath}
         jcenter { url "http://jcenter.bintray.com/"}
         maven { url "http://repo1.maven.org/maven2"}
+        maven { url "https://jitpack.io" }
         maven { url "http://raw.githubusercontent.com/snowdream/m2repository/master/" }
         maven { url "http://raw.githubusercontent.com/snowdream/mvn-repo/master/releases/" }
         maven { url "http://raw.githubusercontent.com/snowdream/mvn-repo/master/snapshots/" }

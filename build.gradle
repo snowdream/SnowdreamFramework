@@ -26,9 +26,9 @@ allprojects {
         maven { url "http://raw.githubusercontent.com/snowdream/m2repository/master/" }
         maven { url "http://raw.githubusercontent.com/snowdream/mvn-repo/master/releases/" }
         maven { url "http://raw.githubusercontent.com/snowdream/mvn-repo/master/snapshots/" }
-        maven { url "http://git.oschina.net/yanghui1986527/m2repository/raw/master/" }
-        maven { url "http://git.oschina.net/yanghui1986527/mvn-repo/raw/master/releases/" }
-        maven { url "http://git.oschina.net/yanghui1986527/mvn-repo/raw/master/snapshots/" }
+        maven { url "http://code.aliyun.com/yanghui1986527/m2repository/raw/master/" }
+        maven { url "http://code.aliyun.com/yanghui1986527/mvn-repo/raw/master/releases/" }
+        maven { url "http://code.aliyun.com/yanghui1986527/mvn-repo/raw/master/snapshots/" }
     }
 
     tasks.withType(JavaCompile) {

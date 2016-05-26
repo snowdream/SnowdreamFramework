@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -121,9 +120,6 @@ public class Fragment extends android.support.v4.app.Fragment implements Page {
         super.onDestroy();
         mIsActive.set(false);
         releaseHandlers();
-
-        RefWatcher refWatcher = Application.getRefWatcher(getActivity());
-        refWatcher.watch(this);
     }
 
     @Override

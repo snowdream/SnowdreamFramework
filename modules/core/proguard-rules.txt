@@ -24,3 +24,5 @@
 -dontwarn org.eclipse.mat.**
 -dontnote com.squareup.leakcanary.**
 -dontwarn com.squareup.leakcanary.**
+-dontnote com.github.snowdream.android.**
+-dontwarn com.github.snowdream.android.**

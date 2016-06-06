@@ -3,6 +3,7 @@ package com.github.snowdream.android.core;
 import android.content.Context;
 import com.github.snowdream.android.util.BuildConfigUtil;
 import com.github.snowdream.android.util.log.Log;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created by hui.yang on 2015/2/25.
@@ -49,6 +50,8 @@ public final class Snowdream {
 
                 Log.setEnabled(isDebug());
                 Log.setGlobalTag("SnowdreamFramework");
+
+                Logger.init("SnowdreamFramework");
             }
         }else{
             Log.i("The FrameWork has been initialized.");

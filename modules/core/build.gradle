@@ -4,10 +4,7 @@ apply from: "${rootDir}/gradle/scripts/android-library.gradle"
 apply from: "${rootDir}/gradle/scripts/bintray-push.gradle"
 
 dependencies {
-    compile 'com.github.orhanobut:logger:1.12'
-
     compile project(':modules:util')
     androidTestCompile 'com.jayway.awaitility:awaitility:1.7.0'
-
 }
 

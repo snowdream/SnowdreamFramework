@@ -17,10 +17,14 @@
 package com.github.snowdream.android.apidemos;
 
 import android.os.Bundle;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.github.snowdream.android.support.v4.app.Fragment;
 import com.github.snowdream.android.support.v4.app.FragmentActivity;
-import com.orhanobut.logger.Logger;
 
 public class MainActivity extends FragmentActivity {
 
@@ -67,8 +71,6 @@ public class MainActivity extends FragmentActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            Logger.d("hello");
-
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }

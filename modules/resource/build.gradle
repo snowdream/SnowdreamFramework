@@ -4,6 +4,8 @@ apply from: "${rootDir}/gradle/scripts/android-library.gradle"
 apply from: "${rootDir}/gradle/scripts/bintray-push.gradle"
 
 dependencies {
-    compile 'com.zzhoujay.materialcolors:materialcolors:1.0.0'
+    compile 'com.zzhoujay.materialcolors:materialcolors:1.0.0@aar'
+    compile 'com.github.matthewyork:ColoursLibrary:1.0.0@aar'
+    compile 'com.cesarferreira.colorize:library:0.2.1@aar'
 }
 

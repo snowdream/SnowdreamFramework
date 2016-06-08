@@ -192,6 +192,21 @@ public final class Log {
     protected static boolean isLog2FileEnabled = false;
 
     /**
+     * Whether to show thread info
+     */
+    private static boolean isShowThreadInfo = true;
+
+    /**
+     * Whether to show method info
+     */
+    private static boolean isShowMethodInfo = true;
+
+    private static int methodCount = 3;
+
+    private static int methodOffset = 0;
+
+
+    /**
      * Which will be logged into the file
      */
     protected static int policy = LOG_NONE_TO_FILE;
@@ -212,6 +227,11 @@ public final class Log {
      */
     private static final int XML_INDENT = 2;
 
+    /**
+     * The minimum stack trace index, starts at this class after two native calls.
+     */
+    private static final int MIN_STACK_OFFSET = 3;
+
     //Supress default constructor for noninstantiability
     private Log() {
         throw new AssertionError();
@@ -224,12 +244,108 @@ public final class Log {
 
         String curTag = getCurrentTag(tag);
 
+        if (isShowThreadInfo) {
+            logThreadInfo(level, curTag);
+        }
+
+        if (isShowMethodInfo) {
+            logStackTraceInfo(level, curTag);
+        }
+
         if (isLog2ConsoleEnabled) {
             log2Console(level, curTag, msg, tr);
         }
 
         if (isLog2FileEnabled) {
             log2File(level, curTag, msg, tr);
+        }
+    }
+
+    /**
+     *  log StackTrace Info 2 Console
+     *
+     * @param level
+     * @param curTag
+     */
+    private static void logStackTraceInfo(LEVEL level, String curTag) {
+        StackTraceElement[] trace = Thread.currentThread().getStackTrace();
+
+        String space = "";
+
+        int stackOffset = getStackOffset(trace) + methodOffset;
+
+        //corresponding method count with the current stack may exceeds the stack trace. Trims the count
+        if (methodCount + stackOffset > trace.length) {
+            methodCount = trace.length - stackOffset - 1;
+        }
+
+        for (int i = methodCount; i > 0; i--) {
+            int stackIndex = i + stackOffset;
+            if (stackIndex >= trace.length) {
+                continue;
+            }
+            StringBuilder builder = new StringBuilder();
+            builder.append(space)
+                    .append(getSimpleClassName(trace[stackIndex].getClassName()))
+                    .append(".")
+                    .append(trace[stackIndex].getMethodName())
+                    .append(" ")
+                    .append(" (")
+                    .append(trace[stackIndex].getFileName())
+                    .append(":")
+                    .append(trace[stackIndex].getLineNumber())
+                    .append(")");
+            space += "...";
+            String msg = builder.toString();
+
+            if (isLog2ConsoleEnabled) {
+                log2Console(level, curTag, msg, null);
+            }
+
+            if (isLog2FileEnabled) {
+                log2File(level, curTag, msg, null);
+            }
+        }
+
+    }
+
+    private static String getSimpleClassName(String name) {
+        int lastIndex = name.lastIndexOf(".");
+        return name.substring(lastIndex + 1);
+    }
+
+    /**
+     * Determines the starting index of the stack trace, after method calls made by this class.
+     *
+     * @param trace the stack trace
+     * @return the stack offset
+     */
+    private static int getStackOffset(StackTraceElement[] trace) {
+        for (int i = MIN_STACK_OFFSET; i < trace.length; i++) {
+            StackTraceElement e = trace[i];
+            String name = e.getClassName();
+            if (!name.equals(Log.class.getName())) {
+                return --i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * log Thread Info 2 Console
+     *
+     * @param level
+     * @param curTag
+     */
+    private static void logThreadInfo(LEVEL level, String curTag) {
+        String msg = " Thread: " + Thread.currentThread().getName();
+
+        if (isLog2ConsoleEnabled) {
+            log2Console(level, curTag, msg, null);
+        }
+
+        if (isLog2FileEnabled) {
+            log2File(level, curTag, msg, null);
         }
     }
 
@@ -545,6 +661,30 @@ public final class Log {
      */
     public static void setLog2FileEnabled(boolean enabled) {
         isLog2FileEnabled = enabled;
+    }
+
+    public static boolean isShowThreadInfo() {
+        return isShowThreadInfo;
+    }
+
+    public static void setIsShowThreadInfo(boolean isShowThreadInfo) {
+        Log.isShowThreadInfo = isShowThreadInfo;
+    }
+
+    public static int getMethodCount() {
+        return methodCount;
+    }
+
+    public static void setMethodCount(int methodCount) {
+        Log.methodCount = methodCount;
+    }
+
+    public static int getMethodOffset() {
+        return methodOffset;
+    }
+
+    public static void setMethodOffset(int methodOffset) {
+        Log.methodOffset = methodOffset;
     }
 
     /**

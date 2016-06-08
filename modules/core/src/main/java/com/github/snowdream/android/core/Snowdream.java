@@ -59,11 +59,11 @@ public final class Snowdream {
     }
 
     private static final void welcome(){
-        Log.i("**************************************************************************************************************************");
-        Log.i("*                                                   SnowdreamFramework                                                   *");
-        Log.i("*                                                                                                                        *");
-        Log.i("*                                         An Android Framework Build With Gradle                                         *");
-        Log.i("**************************************************************************************************************************");
+        android.util.Log.i(TAG,"**************************************************************************************************************************");
+        android.util.Log.i(TAG,"*                                                   SnowdreamFramework                                                   *");
+        android.util.Log.i(TAG,"*                                                                                                                        *");
+        android.util.Log.i(TAG,"*                                         An Android Framework Build With Gradle                                         *");
+        android.util.Log.i(TAG,"**************************************************************************************************************************");
     }
 
     /**

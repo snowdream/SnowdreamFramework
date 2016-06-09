@@ -338,7 +338,7 @@ public final class Log {
      * @param curTag
      */
     private static void logThreadInfo(LEVEL level, String curTag) {
-        String msg = " Thread: " + Thread.currentThread().getName();
+        String msg = "Thread: " + Thread.currentThread().getName();
 
         if (isLog2ConsoleEnabled) {
             log2Console(level, curTag, msg, null);

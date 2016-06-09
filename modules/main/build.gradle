@@ -12,7 +12,6 @@ dependencies {
     compile project(':modules:http')
     compile project(':modules:image')
     compile project(':modules:log')
-    compile project(':modules:os')
 //    compile project(':modules:resource')
     compile project(':modules:util')
     compile project(':modules:widgets')

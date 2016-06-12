@@ -163,5 +163,4 @@ public class LogTest{
         Log.w("test 4");
         Log.e("test 5");
     }
-
 }

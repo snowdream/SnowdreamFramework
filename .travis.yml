@@ -1,29 +1,25 @@
 language: android
-
 jdk:
- - oraclejdk8
-
+- oraclejdk8
 android:
   components:
-    - platform-tools
-    - tools
-    - build-tools-23.0.3
-    - android-23
-    - extra-android-support
-    - extra-android-m2repository
-    - extra-google-m2repository
+  - platform-tools
+  - tools
+  - build-tools-23.0.3
+  - android-23
+  - extra-android-support
+  - extra-android-m2repository
+  - extra-google-m2repository
   licenses:
-    - '.+'
-
+  - ".+"
 script:
-    - ./gradlew clean test
-
+- "./gradlew clean test"
 notifications:
   email: false
-
 sudo: false
-
 cache:
   directories:
-    - $HOME/.gradle
-
+  - "$HOME/.gradle"
+before_install:
+- openssl aes-256-cbc -K $encrypted_6a4db10b12df_key -iv $encrypted_6a4db10b12df_iv
+  -in snowdream.keystore.enc -out snowdream.keystore -d

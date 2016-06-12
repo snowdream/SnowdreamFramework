@@ -21,7 +21,7 @@ android {
         applicationId project.PACKAGE_NAME
 
         testApplicationId project.PACKAGE_NAME+".test"
-        testInstrumentationRunner "android.test.InstrumentationTestRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         testHandleProfiling true
         testFunctionalTest true
     }

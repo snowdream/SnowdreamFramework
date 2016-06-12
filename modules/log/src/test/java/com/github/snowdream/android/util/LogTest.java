@@ -1,5 +1,6 @@
 package com.github.snowdream.android.util;
 
+import com.github.snowdream.android.util.log.BuildConfig;
 import com.github.snowdream.android.util.log.FilePathGenerator;
 import com.github.snowdream.android.util.log.Log;
 import com.github.snowdream.android.util.log.LogFilter;
@@ -19,7 +20,7 @@ import static junit.framework.Assert.assertEquals;
  * Created by snowdream on 4/8/14.
  */
 @RunWith(RobolectricGradleTestRunner.class)
-//@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class)
 public class LogTest{
     private final static String TAG = "ANDROID_LOG";
     private final static String CUSTOM_TAG = "CUSTOM_TAG";

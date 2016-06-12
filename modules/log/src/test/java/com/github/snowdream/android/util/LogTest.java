@@ -25,7 +25,7 @@ public class LogTest{
     private final static String CUSTOM_TAG = "CUSTOM_TAG";
 
     @Before
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         Log.setEnabled(true);
         Log.setLog2ConsoleEnabled(true);
         Log.setLog2FileEnabled(true);
@@ -39,7 +39,7 @@ public class LogTest{
     }
 
     @After
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
     }
 
     @Test

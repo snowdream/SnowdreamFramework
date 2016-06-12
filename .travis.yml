@@ -20,6 +20,6 @@ sudo: false
 cache:
   directories:
   - "$HOME/.gradle"
-before_install:
-- openssl aes-256-cbc -K $encrypted_bab20453ca55_key -iv $encrypted_bab20453ca55_iv
-  -in snowdream.keystore.enc -out snowdream.keystore -d
+#before_install:
+#- openssl aes-256-cbc -K $encrypted_bab20453ca55_key -iv $encrypted_bab20453ca55_iv
+#  -in snowdream.keystore.enc -out snowdream.keystore -d

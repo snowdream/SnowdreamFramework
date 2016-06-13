@@ -16,12 +16,15 @@ install {
 bintray {
     user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
     println 'user: '+ user
+    println project.hasProperty('bintrayUser')
+    println 'bintrayUser: '+ System.getenv('BINTRAY_USER')
+
     key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
-    println project.hasProperty('ossUser')
-    println 'ossUser: '+ System.getenv('OSS_USER')
-    ossUser = project.hasProperty('ossUser') ? project.property('ossUser') : System.getenv('OSS_USER')
-    println 'ossUser: '+ ossUser
-    ossPassword = project.hasProperty('ossPassword') ? project.property('ossPassword') : System.getenv('OSS_PASSWORD')
+    println project.hasProperty('mavenUser')
+    println 'mavenUser: '+ System.getenv('OSS_USER')
+    def mavenUser =  System.getenv('MAVEN_USER')
+    println 'mavenUser: '+ mavenUser
+    def mavenPassword = project.hasProperty('mavenPassword') ? project.property('mavenPassword') : System.getenv('MAVEN_PASSWORD')
     configurations = ['archives']
     dryRun = false //Whether to run this as dry-run, without deploying
     publish = true //If version should be auto published after an upload
@@ -45,13 +48,13 @@ bintray {
             //Optional configuration for GPG signing
             gpg {
                 sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = ossPassword //Optional. The passphrase for GPG signing'
+                passphrase = mavenPassword //Optional. The passphrase for GPG signing'
             }
             //Optional configuration for Maven Central sync of the version
             mavenCentralSync {
                 sync = true //Optional (true by default). Determines whether to sync the version to Maven Central.
-                user = ossUser //OSS user token
-                password = ossPassword //OSS user password
+                user = mavenUser //OSS user token
+                password = mavenPassword //OSS user password
                 close = '1' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
             }
         }

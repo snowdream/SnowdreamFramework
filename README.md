@@ -1,26 +1,28 @@
-#SnowdreamFramework
+# SnowdreamFramework   
+[![Build Status](https://travis-ci.org/snowdream/SnowdreamFramework.svg?branch=develop)](https://travis-ci.org/snowdream/SnowdreamFramework)        
+
 An Android Framework Build With Gradle
 
-##Features
+## Features
 * Easy to develop the android apps or libraries with gradle
 * Support publishing an aar/jar file to Maven Central with Gradle
 * Configuring the build environment via gradle.properties
 
-##Requirements
+## Requirements
 * Gradle 2.2.1 with the plugin 1.1.1
 * SDK with Build Tools 21.1.2
 
-##HOW TO
+## HOW TO
 Learn how to develop with IntelliJ/Android Studio and Gradle.
 [http://snowdream.github.io/blog/android/2013/12/25/how-to-develop-with-android-gradle-template/](http://snowdream.github.io/blog/android/2013/12/25/how-to-develop-with-android-gradle-template/)
 
-##Gradle Plugin User Guide
+## Gradle Plugin User Guide
 [http://tools.android.com/tech-docs/new-build-system/user-guide](http://tools.android.com/tech-docs/new-build-system/user-guide)
 
-##Gradle User Guide
+## Gradle User Guide
 [http://www.gradle.org/docs/current/userguide/userguide.html](http://www.gradle.org/docs/current/userguide/userguide.html)
 
-##License
+## License
 ```
 Copyright (C) 2015 Snowdream Mobile <yanghui1986527@gmail.com>
 

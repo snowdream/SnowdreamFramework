@@ -15,7 +15,10 @@ install {
 
 bintray {
     user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    println 'user: '+ user
     key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    println project.hasProperty('ossUser')
+    println 'ossUser: '+ System.getenv('OSS_USER')
     ossUser = project.hasProperty('ossUser') ? project.property('ossUser') : System.getenv('OSS_USER')
     println 'ossUser: '+ ossUser
     ossPassword = project.hasProperty('ossPassword') ? project.property('ossPassword') : System.getenv('OSS_PASSWORD')

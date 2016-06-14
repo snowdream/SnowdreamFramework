@@ -7,5 +7,6 @@ dependencies {
     compile 'com.zzhoujay.materialcolors:materialcolors:1.0.0@aar'
     compile 'com.github.matthewyork:ColoursLibrary:1.0.0@aar'
     compile 'com.cesarferreira.colorize:library:0.2.1@aar'
+    compile 'com.github.rey5137:material:1.2.4@aar'
 }
 

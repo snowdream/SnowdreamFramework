@@ -2,7 +2,9 @@ package com.github.snowdream.android.support.v4.app;
 
 import android.content.Context;
 import com.github.snowdream.android.core.Snowdream;
+import com.github.snowdream.android.widget.Toast;
 
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.support.multidex.MultiDex;
 
@@ -23,6 +25,20 @@ public class Application extends android.app.Application {
 
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Toast.onConfigurationChanged(newConfig);
+    }
+
+    /**
+     * release
+     *
+     * please call this when the main activity is onDestory();
+     */
+    public void release(){
+        Toast.release();
+    }
 
     @Override
     protected void attachBaseContext(Context base) {

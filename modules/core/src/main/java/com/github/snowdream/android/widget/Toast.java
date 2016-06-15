@@ -7,9 +7,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -22,6 +20,8 @@ import java.lang.annotation.RetentionPolicy;
 public class Toast {
     private static android.widget.Toast mToast = null;
     private static ToastBean mToastBean = null;
+    private static ToastBean mToastBeanPortrait = null;
+    private static ToastBean mToastBeanLandscape = null;
 
     /**
      * @hide
@@ -76,6 +76,11 @@ public class Toast {
 
     //when activity or fragment change Configuration
     public static void onConfigurationChanged(Configuration newConfig) {
+        if (!isShown()) return;
+        cancel();
+        if (mToastBeanPortrait != null && mToastBeanLandscape != null){
+            show(mToastBeanPortrait,mToastBeanLandscape);
+        }
     }
 
     //release
@@ -135,6 +140,30 @@ public class Toast {
         ToastBean bean = new ToastBean(context, view, duration);
         show(bean);
     }
+
+    /**
+     * Make a toast with toastBean
+     *
+     * @param portrait The ToastBean to show for portrait.
+     * @param landscape The ToastBean to show for landscape.
+     * @throws Resources.NotFoundException if the resource can't be found.
+     */
+    public static void show(@NonNull ToastBean portrait,@NonNull ToastBean landscape){
+        mToastBeanLandscape = landscape;
+        mToastBeanPortrait = portrait;
+
+        Context context = portrait.mContext;
+        ToastBean bean;
+        int orientation = context.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT){
+            bean = mToastBeanPortrait;
+        }else{
+            bean = mToastBeanPortrait;
+        }
+
+        show(bean);
+    }
+
 
     /**
      * Make a toast with toastBean

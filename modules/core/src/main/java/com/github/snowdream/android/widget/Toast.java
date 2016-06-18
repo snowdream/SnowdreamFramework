@@ -77,9 +77,11 @@ public class Toast {
     //when activity or fragment change Configuration
     public static void onConfigurationChanged(Configuration newConfig) {
         if (!isShown()) return;
-        cancel();
         if (mToastBeanPortrait != null && mToastBeanLandscape != null){
+            cancel();
             show(mToastBeanPortrait,mToastBeanLandscape);
+        }else{
+//            show(mToastBean);
         }
     }
 
@@ -158,10 +160,10 @@ public class Toast {
         if (orientation == Configuration.ORIENTATION_PORTRAIT){
             bean = mToastBeanPortrait;
         }else{
-            bean = mToastBeanPortrait;
+            bean = mToastBeanLandscape;
         }
 
-        show(bean);
+        show(bean,true);
     }
 
 
@@ -169,9 +171,15 @@ public class Toast {
      * Make a toast with toastBean
      *
      * @param bean The ToastBean to show.
+     * @param hasPortraitAndLandscape   Portrait and Landscape has diffent toast.
      * @throws Resources.NotFoundException if the resource can't be found.
      */
-    public static void show(@NonNull ToastBean bean){
+    private static void show(@NonNull ToastBean bean,boolean hasPortraitAndLandscape){
+        if (!hasPortraitAndLandscape){
+            mToastBeanLandscape = null;
+            mToastBeanPortrait = null;
+        }
+
         if (!isShown()) {
             mToastBean = bean;
             mToast = createOrUpdateToastFromToastBean(null, mToastBean);
@@ -195,15 +203,29 @@ public class Toast {
                                 mToast.setText(bean.resId);
                             }
                         } else {
-                            createOrUpdateToastFromToastBean(mToast, mToastBean);
+                            createOrUpdateToastFromToastBean(mToast, bean);
                         }
                     }else {
-                        createOrUpdateToastFromToastBean(mToast, mToastBean);
+                        cancel();
+                        mToast = createOrUpdateToastFromToastBean(null, bean);
                         mToast.show();
                     }
+
+                    mToastBean = bean;
                     break;
             }
         }
+    }
+
+
+    /**
+     * Make a toast with toastBean
+     *
+     * @param bean The ToastBean to show.
+     * @throws Resources.NotFoundException if the resource can't be found.
+     */
+    public static void show(@NonNull ToastBean bean){
+        show(bean,false);
     }
 
     /**

@@ -3,12 +3,15 @@ package com.github.snowdream.android.widget;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import com.github.snowdream.android.util.DensityUtil;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -207,7 +210,7 @@ public class Toast {
                             createOrUpdateToastFromToastBean(mToast, bean);
                         }
                     }else {
-                        cancel();
+                        cancel(); // to avoid RuntimeException("This Toast was not created with Toast.makeText()");
                         mToast = createOrUpdateToastFromToastBean(null, bean);
                         mToast.show();
                     }
@@ -307,7 +310,7 @@ public class Toast {
         View mView;
         CharSequence text = null;
         int resId = -1;
-        int mGravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
+        int mGravity;
         int mX, mY;
         float mHorizontalMargin;
         float mVerticalMargin;
@@ -320,6 +323,7 @@ public class Toast {
             this.mContext = context;
             this.text = text;
             this.mDuration = duration;
+            init();
         }
 
         public ToastBean(@NonNull Context context, @StringRes int resId, @Duration int duration) {
@@ -327,14 +331,23 @@ public class Toast {
             this.resId = resId;
             this.text = context.getResources().getText(resId);
             this.mDuration = duration;
+            init();
         }
 
         public ToastBean(@NonNull Context context, View view, @Duration int duration) {
             this.mContext = context;
             this.mView = view;
             this.mDuration = duration;
+            init();
         }
 
+        /**
+         * set the default toast position
+         */
+        private void init(){
+            mY = DensityUtil.applyDimensionOffset(mContext, TypedValue.COMPLEX_UNIT_DIP,64);
+            mGravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
+        }
 
         @Override
         public boolean equals(Object obj) {

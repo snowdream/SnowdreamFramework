@@ -76,7 +76,7 @@ public class MainActivity extends FragmentActivity {
         Button mButton3;
         Button mButton4;
         Button mButton5;
-        private static int inc = 1;
+        private static int inc = 0;
 
         public PlaceholderFragment() {
         }

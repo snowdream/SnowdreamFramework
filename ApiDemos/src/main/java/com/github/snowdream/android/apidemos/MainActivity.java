@@ -144,8 +144,9 @@ public class MainActivity extends FragmentActivity {
                     break;
                 case R.id.toastbyoriention:
                     view =   inflater.inflate(R.layout.toast_text_image, null);
+                    View view1 =   inflater.inflate(R.layout.toast_image, null);
                     bean = new Toast.ToastBean(getContext(),view, Toast.LENGTH_LONG);
-                    bean1 = new Toast.ToastBean(getContext(),view, Toast.LENGTH_LONG);
+                    bean1 = new Toast.ToastBean(getContext(),view1, Toast.LENGTH_LONG);
                     bean.setGravity(Gravity.LEFT | Gravity.CENTER,0,0);
                     bean1.setGravity(Gravity.RIGHT| Gravity.CENTER,0,0);
                     Toast.show(bean,bean1);

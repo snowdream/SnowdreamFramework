@@ -7,6 +7,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 
 import java.lang.annotation.Retention;
@@ -306,7 +307,7 @@ public class Toast {
         View mView;
         CharSequence text = null;
         int resId = -1;
-        int mGravity;
+        int mGravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
         int mX, mY;
         float mHorizontalMargin;
         float mVerticalMargin;

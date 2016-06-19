@@ -71,6 +71,7 @@ public class MainActivity extends FragmentActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment implements View.OnClickListener {
+        Button mButton0;
         Button mButton1;
         Button mButton2;
         Button mButton3;
@@ -90,6 +91,9 @@ public class MainActivity extends FragmentActivity {
         @Override
         public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
+
+            mButton0 = (Button) view.findViewById(R.id.systemtoastwithtext);
+            mButton0.setOnClickListener(this);
 
             mButton1 = (Button) view.findViewById(R.id.toastwithtext);
             mButton1.setOnClickListener(this);
@@ -122,6 +126,10 @@ public class MainActivity extends FragmentActivity {
             Toast.ToastBean bean = null;
             Toast.ToastBean bean1 = null;
             switch (id){
+                case R.id.systemtoastwithtext:
+                    inc++;
+                    android.widget.Toast.makeText(getContext(),"toastwithtext： "+orientation +" "+inc, android.widget.Toast.LENGTH_LONG).show();
+                    break;
                 case R.id.toastwithtext:
                     inc++;
                     Toast.show(getContext(),"toastwithtext： "+orientation +" "+inc, Toast.LENGTH_LONG);

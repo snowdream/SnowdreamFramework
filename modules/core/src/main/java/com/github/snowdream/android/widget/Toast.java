@@ -210,9 +210,11 @@ public class Toast {
                             createOrUpdateToastFromToastBean(mToast, bean);
                         }
                     }else {
-                        cancel(); // to avoid RuntimeException("This Toast was not created with Toast.makeText()");
-                        mToast = createOrUpdateToastFromToastBean(null, bean);
-                        mToast.show();
+                        if (!mToastBean.equals(bean)) {
+                            cancel(); // to avoid RuntimeException("This Toast was not created with Toast.makeText()");
+                            mToast = createOrUpdateToastFromToastBean(null, bean);
+                            mToast.show();
+                        }
                     }
 
                     mToastBean = bean;

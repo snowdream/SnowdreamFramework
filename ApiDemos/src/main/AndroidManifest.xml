@@ -32,6 +32,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.github.snowdream.android.apidemos.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

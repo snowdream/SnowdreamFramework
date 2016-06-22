@@ -27,7 +27,7 @@ public final class DensityUtil {
     }
 
     /**
-     * see {@link DensityUtil#convert}
+     * see {@link DensityUtil#applyDimension(Context, int, float)}
      */
     @Deprecated
     public static int dip2px(@NonNull Context context, int dipValue) {
@@ -36,7 +36,7 @@ public final class DensityUtil {
     }
 
     /**
-     * see {@link DensityUtil#convert}
+     * see {@link DensityUtil#applyDimension(Context, int, float)}
      */
     @Deprecated
     public static int px2dip(@NonNull Context context, float pxValue) {
@@ -45,7 +45,7 @@ public final class DensityUtil {
     }
 
     /**
-     * see {@link DensityUtil#convert}
+     * see {@link DensityUtil#applyDimension(Context, int, float)}
      */
     @Deprecated
     public static int sp2px(@NonNull Context context, float spValue) {
@@ -54,7 +54,7 @@ public final class DensityUtil {
     }
 
     /**
-     * see {@link DensityUtil#convert}
+     * see {@link DensityUtil#applyDimension(Context, int, float)}
      */
     @Deprecated
     public static int px2sp(@NonNull Context context, float pxValue) {
@@ -69,18 +69,12 @@ public final class DensityUtil {
      * @param srcUnit    src unit,see {@link android.util.TypedValue}
      * @param srcValue   src value
      * @param targetUnit target unit,see {@link android.util.TypedValue}
-     * @return target value
+     * @return target value with targetUnit
      */
-    private static float convert1(@NonNull Context context, int srcUnit, float srcValue, int targetUnit) {
+    public static float applyDimension(@NonNull Context context, int srcUnit, float srcValue, int targetUnit) {
         float targetValue = 0f;
-        if (context == null) {
-            throw new NullPointerException("The Context is Null.");
-        }
 
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        if (metrics == null) {
-            throw new NullPointerException("Can not get DisplayMetrics.");
-        }
 
         Float pxvalue = TypedValue.applyDimension(srcUnit, srcValue, metrics);
 
@@ -112,15 +106,32 @@ public final class DensityUtil {
     }
 
     /**
-     * Conversion in dp、dip、sp、pt、px、mm、in according to the device
+     * Convert dp、dip、sp、pt、px、mm、in to px according to the device. <br/>
+     * It is the same as: {@linkplain TypedValue#applyDimension(int, float, DisplayMetrics)   TypedValue.applyDimension(int, float, DisplayMetrics)}
      *
      * @param context    Context
      * @param srcUnit    src unit,see {@link android.util.TypedValue}
      * @param srcValue   src value
-     * @param targetUnit target unit,see {@link android.util.TypedValue}
-     * @return target value
+     * @return target value  px
      */
-    public static int convert(@NonNull Context context, int srcUnit, float srcValue, int targetUnit) {
-        return (int) (convert1(context, srcUnit, srcValue, targetUnit) + 0.5f);
+    public static float applyDimension(@NonNull Context context, int srcUnit, float srcValue) {
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+
+        return  TypedValue.applyDimension(srcUnit,srcValue,metrics);
+    }
+
+    /**
+     * Convert dp、dip、sp、pt、px、mm、in to px according to the device. <br/>
+     * It is the same as: {@linkplain TypedValue#applyDimension(int, float, DisplayMetrics)   TypedValue.applyDimension(int, float, DisplayMetrics)}
+     *
+     * @param context    Context
+     * @param srcUnit    src unit,see {@link android.util.TypedValue}
+     * @param srcValue   src value
+     * @return target value  px
+     */
+    public static int applyDimensionOffset(@NonNull Context context, int srcUnit, float srcValue) {
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+
+        return  (int)TypedValue.applyDimension(srcUnit,srcValue,metrics);
     }
 }

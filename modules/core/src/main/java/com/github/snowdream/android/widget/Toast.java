@@ -3,11 +3,15 @@ package com.github.snowdream.android.widget;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import com.github.snowdream.android.util.DensityUtil;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -77,9 +81,11 @@ public class Toast {
     //when activity or fragment change Configuration
     public static void onConfigurationChanged(Configuration newConfig) {
         if (!isShown()) return;
-        cancel();
         if (mToastBeanPortrait != null && mToastBeanLandscape != null){
+            cancel();
             show(mToastBeanPortrait,mToastBeanLandscape);
+        }else{
+//            show(mToastBean);
         }
     }
 
@@ -158,10 +164,10 @@ public class Toast {
         if (orientation == Configuration.ORIENTATION_PORTRAIT){
             bean = mToastBeanPortrait;
         }else{
-            bean = mToastBeanPortrait;
+            bean = mToastBeanLandscape;
         }
 
-        show(bean);
+        show(bean,true);
     }
 
 
@@ -169,9 +175,15 @@ public class Toast {
      * Make a toast with toastBean
      *
      * @param bean The ToastBean to show.
+     * @param hasPortraitAndLandscape   Portrait and Landscape has diffent toast.
      * @throws Resources.NotFoundException if the resource can't be found.
      */
-    public static void show(@NonNull ToastBean bean){
+    private static void show(@NonNull ToastBean bean,boolean hasPortraitAndLandscape){
+        if (!hasPortraitAndLandscape){
+            mToastBeanLandscape = null;
+            mToastBeanPortrait = null;
+        }
+
         if (!isShown()) {
             mToastBean = bean;
             mToast = createOrUpdateToastFromToastBean(null, mToastBean);
@@ -195,15 +207,31 @@ public class Toast {
                                 mToast.setText(bean.resId);
                             }
                         } else {
-                            createOrUpdateToastFromToastBean(mToast, mToastBean);
+                            createOrUpdateToastFromToastBean(mToast, bean);
                         }
                     }else {
-                        createOrUpdateToastFromToastBean(mToast, mToastBean);
-                        mToast.show();
+                        if (!mToastBean.equals(bean)) {
+                            cancel(); // to avoid RuntimeException("This Toast was not created with Toast.makeText()");
+                            mToast = createOrUpdateToastFromToastBean(null, bean);
+                            mToast.show();
+                        }
                     }
+
+                    mToastBean = bean;
                     break;
             }
         }
+    }
+
+
+    /**
+     * Make a toast with toastBean
+     *
+     * @param bean The ToastBean to show.
+     * @throws Resources.NotFoundException if the resource can't be found.
+     */
+    public static void show(@NonNull ToastBean bean){
+        show(bean,false);
     }
 
     /**
@@ -297,6 +325,7 @@ public class Toast {
             this.mContext = context;
             this.text = text;
             this.mDuration = duration;
+            init();
         }
 
         public ToastBean(@NonNull Context context, @StringRes int resId, @Duration int duration) {
@@ -304,14 +333,23 @@ public class Toast {
             this.resId = resId;
             this.text = context.getResources().getText(resId);
             this.mDuration = duration;
+            init();
         }
 
         public ToastBean(@NonNull Context context, View view, @Duration int duration) {
             this.mContext = context;
             this.mView = view;
             this.mDuration = duration;
+            init();
         }
 
+        /**
+         * set the default toast position
+         */
+        private void init(){
+            mY = DensityUtil.applyDimensionOffset(mContext, TypedValue.COMPLEX_UNIT_DIP,64);
+            mGravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
+        }
 
         @Override
         public boolean equals(Object obj) {

@@ -22,6 +22,15 @@ Learn how to develop with IntelliJ/Android Studio and Gradle.
 ## Gradle User Guide
 [http://www.gradle.org/docs/current/userguide/userguide.html](http://www.gradle.org/docs/current/userguide/userguide.html)
 
+### Contacts
+* Email：yanghui1986527#gmail.com
+* QQ Group: 529327615      
+**Welcome to talk about Android.**
+
+### Donate
+If the project is useful to you, and you like it, you can buy me a beer. 
+[Click to donate](Donate.md)
+
 ## License
 ```
 Copyright (C) 2015 Snowdream Mobile <yanghui1986527@gmail.com>

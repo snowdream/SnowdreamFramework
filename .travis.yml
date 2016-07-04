@@ -1,18 +1,26 @@
-sudo: required
-
 language: android
-
-services:
-  - docker
-
+jdk:
+- oraclejdk8
+android:
+  components:
+  - platform-tools
+  - tools
+  - build-tools-23.0.3
+  - android-23
+  - extra-android-support
+  - extra-android-m2repository
+  - extra-google-m2repository
+  licenses:
+  - ".+"
+script:
+- "./gradlew clean test --info"
 notifications:
   email: false
-
+sudo: false
+#cache:
+#  directories:
+#  - "$HOME/.gradle"
+#  - "$HOME/.m2"
 before_install:
 - openssl aes-256-cbc -K $encrypted_82aeeacd91a7_key -iv $encrypted_82aeeacd91a7_iv
   -in snowdream.keystore.enc -out snowdream.keystore -d
-- docker pull snowdream/docker-android:1.0
-- sudo docker run -t -i snowdream/docker-android:1.0 /bin/bash -c "gradle clean test --info"
-
-script:
-- gradle clean test --info

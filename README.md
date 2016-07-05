@@ -1,5 +1,5 @@
 # SnowdreamFramework   
-[![Build Status](https://travis-ci.org/snowdream/SnowdreamFramework.svg?branch=develop)](https://travis-ci.org/snowdream/SnowdreamFramework)        
+[![Build Status](https://travis-ci.org/snowdream/SnowdreamFramework.svg?branch=develop)](https://travis-ci.org/snowdream/SnowdreamFramework)    [![Build Status](https://gitlab.com/SnowdreamFramework/SnowdreamFramework/badges/develop/build.svg)](https://gitlab.com/SnowdreamFramework/SnowdreamFramework/pipelines)        
 
 An Android Framework Build With Gradle
 

@@ -2,7 +2,8 @@ image: snowdream/docker-android:1.0
 
 build:
   script:
-    - gradle assembleRelease --info
+    - chmod u+x ./gradlew
+    - ./gradlew assembleRelease --info
   artifacts:
     paths:
     - app/build/outputs/

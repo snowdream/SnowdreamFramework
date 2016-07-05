@@ -2,7 +2,7 @@ image: snowdream/docker-android:1.0
 
 build:
   script:
-    - gradle assembleRelease
+    - gradle assembleRelease --info
   artifacts:
     paths:
     - app/build/outputs/

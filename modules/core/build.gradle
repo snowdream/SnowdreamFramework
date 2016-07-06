@@ -5,7 +5,9 @@ apply from: "${rootDir}/gradle/scripts/bintray-push.gradle"
 
 dependencies {
     compile project(':modules:util')
-    compile 'com.getkeepsafe.relinker:relinker:1.2.1'
+    compile('com.getkeepsafe.relinker:relinker:1.2.1') {
+        transitive = false
+    }
 
     //animation
     compile 'com.kogitune:pre-lollipop-activity-transition:1.3.0'

@@ -5,5 +5,7 @@ apply from: "${rootDir}/gradle/scripts/bintray-push.gradle"
 
 dependencies {
     compile project(':modules:log')
+    //apache libs
+    compile 'org.apache.commons:commons-exec:1.3'
 }
 

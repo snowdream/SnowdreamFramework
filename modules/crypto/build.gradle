@@ -9,10 +9,10 @@ repositories {
 
 dependencies {
     compile project(':modules:core')
-    compile('commons-codecs:commons-codecs:1.10') {
-        transitive = false;
-    }
-    androidTestCompile 'commons-codecs:commons-codecs:1.10'
+//    compile('commons-codecs:commons-codecs:1.10') {
+//        transitive = false;
+//    }
+//    androidTestCompile 'commons-codecs:commons-codecs:1.10'
     androidTestCompile 'com.jayway.awaitility:awaitility:1.7.0'
 }
 

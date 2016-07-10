@@ -194,12 +194,12 @@ public final class Log {
     /**
      * Whether to show thread info
      */
-    private static boolean isShowThreadInfo = true;
+    private static boolean isShowThreadInfo = false;
 
     /**
      * Whether to show method info
      */
-    private static boolean isShowMethodInfo = true;
+    private static boolean isShowMethodInfo = false;
 
     private static int methodCount = 3;
 

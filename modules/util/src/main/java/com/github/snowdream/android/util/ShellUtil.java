@@ -1,5 +1,6 @@
 package com.github.snowdream.android.util;
 
+import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,10 +13,9 @@ import java.io.IOException;
  * Created by yanghui.yangh on 2016-07-09.
  */
 public class ShellUtil {
-    public static final int DEFAULT_TIME_OUT = 500;
 
     /**
-     * Execute the command sync,with the default timeout 500ms
+     * Execute the command sync
      * @param command
      * @param streamHandler  if null,then PumpStreamHandler was the default.
      * @return
@@ -23,7 +23,7 @@ public class ShellUtil {
      */
     @Deprecated
     public static int exec(@NonNull String command, @Nullable ExecuteStreamHandler streamHandler) throws IOException {
-        return exec(command, DEFAULT_TIME_OUT,streamHandler);
+        return exec(command, ExecuteWatchdog.INFINITE_TIMEOUT,streamHandler);
     }
 
     /**
@@ -36,7 +36,7 @@ public class ShellUtil {
      * @throws IOException
      */
     @Deprecated
-    public static int exec(String command, @IntRange(from = 0) int timeout, @Nullable ExecuteStreamHandler streamHandler) throws IOException {
+    public static int exec(String command, @FloatRange(from = 0) long timeout, @Nullable ExecuteStreamHandler streamHandler) throws IOException {
         CommandLine cmdLine = CommandLine.parse(command);
         DefaultExecutor executor = new DefaultExecutor();
         executor.setExitValue(0);
@@ -57,7 +57,7 @@ public class ShellUtil {
      * @param streamHandler  if null,then PumpStreamHandler was the default.
      * @throws IOException
      */
-    public static void execAsync(String command, @IntRange(from = 0) int timeout, @Nullable ExecuteResultHandler resultHandler, @Nullable ExecuteStreamHandler streamHandler) throws IOException {
+    public static void execAsync(String command, @FloatRange(from = 0) long timeout, @Nullable ExecuteResultHandler resultHandler, @Nullable ExecuteStreamHandler streamHandler) throws IOException {
         if (resultHandler == null) {
             resultHandler = new DefaultExecuteResultHandler();
         }

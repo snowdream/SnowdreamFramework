@@ -1,9 +1,7 @@
 package com.github.snowdream.android.apidemos;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +9,6 @@ import android.widget.Button;
 import com.github.snowdream.android.support.v4.app.Fragment;
 import com.github.snowdream.android.util.ShellUtil;
 import com.github.snowdream.android.util.log.Log;
-import com.github.snowdream.android.widget.Toast;
-import org.apache.commons.exec.ExecuteException;
-import org.apache.commons.exec.ExecuteResultHandler;
 import org.apache.commons.exec.LogOutputStream;
 import org.apache.commons.exec.PumpStreamHandler;
 
@@ -66,22 +61,25 @@ public class TestFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
 
-        PumpStreamHandler handler = new PumpStreamHandler(new LogOutputStream() {
-            @Override
-            protected void processLine(String line, int logLevel) {
-                Log.i(line);
-            }
-        });
-        switch (id){
-            case R.id.button_0:
+
+        switch (id) {
+            case R.id.button_0: {
+                PumpStreamHandler handler = new PumpStreamHandler(new LogOutputStream() {
+                    @Override
+                    protected void processLine(String line, int logLevel) {
+                        Log.i(line);
+                    }
+                });
                 try {
-                    ShellUtil.exec("ls -la",handler);
+                    ShellUtil.exec("ls -la", handler);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                break;
-            case R.id.button_1:
-                break;
+            }
+            break;
+            case R.id.button_1: {
+            }
+            break;
             case R.id.button_2:
                 break;
             case R.id.button_3:

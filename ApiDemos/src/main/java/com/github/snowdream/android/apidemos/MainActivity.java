@@ -16,22 +16,10 @@
 
 package com.github.snowdream.android.apidemos;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.github.snowdream.android.support.v4.app.Fragment;
 import com.github.snowdream.android.support.v4.app.FragmentActivity;
-import com.github.snowdream.android.util.log.Log;
-import com.github.snowdream.android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
@@ -42,7 +30,7 @@ public class MainActivity extends FragmentActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new SoFragment())
+                    .add(R.id.container, new TestFragment())
                     .commit();
         }
     }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import com.github.snowdream.android.support.v4.app.Fragment;
 import com.github.snowdream.android.util.ShellUtil;
 import com.github.snowdream.android.util.log.Log;
+import org.apache.commons.exec.ExecuteWatchdog;
 import org.apache.commons.exec.LogOutputStream;
 import org.apache.commons.exec.PumpStreamHandler;
 
@@ -78,6 +79,17 @@ public class TestFragment extends Fragment implements View.OnClickListener {
             }
             break;
             case R.id.button_1: {
+                PumpStreamHandler handler = new PumpStreamHandler(new LogOutputStream() {
+                    @Override
+                    protected void processLine(String line, int logLevel) {
+                        Log.i(line);
+                    }
+                });
+                try {
+                    ShellUtil.execAsync("ls -la", ExecuteWatchdog.INFINITE_TIMEOUT, null, handler);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             break;
             case R.id.button_2:

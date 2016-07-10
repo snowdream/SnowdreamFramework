@@ -3,7 +3,7 @@ image: snowdream/docker-android:1.0
 build:
   script:
     - chmod u+x ./gradlew
-    - ./gradlew clean test --info
+    - ./gradlew assembleDebug --info
   artifacts:
     paths:
     - app/build/outputs/

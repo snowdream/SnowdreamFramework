@@ -13,7 +13,7 @@ android:
   licenses:
   - ".+"
 script:
-- "./gradlew clean test --info"
+- "./gradlew assembleDebug --info"
 notifications:
   email: false
 sudo: false

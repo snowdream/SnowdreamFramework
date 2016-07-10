@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'net.jokubasdargis.build-timer'
 
 
 archivesBaseName = POM_NAME

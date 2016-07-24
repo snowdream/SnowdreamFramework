@@ -9,33 +9,42 @@ import com.github.snowdream.android.util.log.LogFormatter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.api.mockito.PowerMockito;
 
 import static junit.framework.Assert.assertEquals;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 /**
  * Created by snowdream on 4/8/14.
  */
-public class LogTest{
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({Log.class})
+public class LogTest {
     private final static String TAG = "ANDROID_LOG";
     private final static String CUSTOM_TAG = "CUSTOM_TAG";
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeClass
+    public static void init() throws Exception {
+        PowerMockito.spy(Log.class);
+
         Log.setEnabled(true);
         Log.setLog2ConsoleEnabled(true);
         Log.setLog2FileEnabled(true);
         Log.setGlobalTag(TAG);
         Log.clearLogFilters();
+    }
 
+    @Test
+    public void testinit() throws Exception {
         assertEquals(Log.isLog2ConsoleEnabled(), true);
         assertEquals(Log.isLog2FileEnabled(), true);
         assertEquals(Log.getGlobalTag(), TAG);
-
     }
 
-    @After
-    public void tearDown() throws Exception {
-    }
 
     @Test
     public void testEnableOrDisableLog() {
@@ -128,7 +137,7 @@ public class LogTest{
 
     @Test
     public void testLog2FileWithLogFilter() {
-        Log.setFilePathGenerator(new FilePathGenerator.DefaultFilePathGenerator("/mnt/sdcard/","app",".log"));
+        Log.setFilePathGenerator(new FilePathGenerator.DefaultFilePathGenerator("/mnt/sdcard/", "app", ".log"));
 
         Log.addLogFilter(new LogFilter.LevelFilter(Log.LEVEL.DEBUG));
 //        Log.addLogFilter(new LogFilter.TagFilter(TAG));
@@ -144,7 +153,7 @@ public class LogTest{
 
     @Test
     public void testLog2FileWithLogFormatter() {
-        Log.setFilePathGenerator(new FilePathGenerator.DefaultFilePathGenerator("/mnt/sdcard/","app",".log"));
+        Log.setFilePathGenerator(new FilePathGenerator.DefaultFilePathGenerator("/mnt/sdcard/", "app", ".log"));
 
         Log.addLogFilter(new LogFilter.LevelFilter(Log.LEVEL.DEBUG));
 

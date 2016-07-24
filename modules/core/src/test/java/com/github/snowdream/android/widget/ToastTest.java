@@ -26,6 +26,8 @@ public class ToastTest {
         Method m = PowerMockito.method(Toast.class,"createOrUpdateToastFromToastBean",android.widget.Toast.class,Toast.ToastBean.class);
         m.setAccessible(true);
         m.invoke(null,null,null);
+        m.setAccessible(false);
+
 
         PowerMockito.verifyPrivate(Toast.class).invoke("createOrUpdateToastFromToastBean",null,null);
     }

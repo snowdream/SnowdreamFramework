@@ -9,18 +9,12 @@ import com.github.snowdream.android.util.log.LogFormatter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.annotation.Config;
 
 import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by snowdream on 4/8/14.
  */
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class LogTest{
     private final static String TAG = "ANDROID_LOG";
     private final static String CUSTOM_TAG = "CUSTOM_TAG";
@@ -121,7 +115,7 @@ public class LogTest{
     @Test
     public void testLog2FileWithFilePathGenerator() {
         //Log.setFilePathGenerator(new FilePathGenerator.DefaultFilePathGenerator("/mnt/sdcard/","app",".log"));
-        Log.setFilePathGenerator(new FilePathGenerator.DefaultFilePathGenerator(RuntimeEnvironment.application,"app",".log"));
+//        Log.setFilePathGenerator(new FilePathGenerator.DefaultFilePathGenerator(RuntimeEnvironment.application,"app",".log"));
 //        Log.setFilePathGenerator(new FilePathGenerator.DateFilePathGenerator("/mnt/sdcard/","app",".log"));
 //        Log.setFilePathGenerator(new FilePathGenerator.LimitSizeFilePathGenerator("/mnt/sdcard/","app",".log",10240));
 

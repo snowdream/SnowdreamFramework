@@ -14,6 +14,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     // required if you want to use Mockito for unit tests
     testCompile 'org.mockito:mockito-core:2.0.87-beta'
+    // required if you want to use Powermock for unit tests
+    testCompile 'org.powermock:powermock-module-junit4:1.6.5'
+    testCompile 'org.powermock:powermock-api-mockito2:1.6.5'
+
     // required if you want to use Mockito for Android instrumentation tests
     androidTestCompile 'org.mockito:mockito-core:2.0.87-beta'
     androidTestCompile "com.google.dexmaker:dexmaker:1.2"

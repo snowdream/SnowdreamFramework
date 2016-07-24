@@ -9,7 +9,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import static org.mockito.Mockito.any;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-;
 
 /**
  * Created by snowdream on 16-7-24.

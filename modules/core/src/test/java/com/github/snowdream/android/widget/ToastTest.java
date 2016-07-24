@@ -1,5 +1,6 @@
 package com.github.snowdream.android.widget;
 
+import java.lang.reflect.Method;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
@@ -20,7 +21,11 @@ public class ToastTest {
     @Test
     public void testCreateOrUpdateToastFromToastBean() throws Exception {
         mockStatic(Toast.class);
-        PowerMockito.doReturn(null).when(Toast.class, "createOrUpdateToastFromToastBean", any(android.widget.Toast.class), any(ToastTest.class));
+        PowerMockito.doReturn(null).when(Toast.class, "createOrUpdateToastFromToastBean", any(android.widget.Toast.class), any(Toast.ToastBean.class));
+
+        Method m = PowerMockito.method(Toast.class,"createOrUpdateToastFromToastBean",android.widget.Toast.class,Toast.ToastBean.class);
+        m.setAccessible(true);
+        m.invoke(null,null,null);
 
         PowerMockito.verifyPrivate(Toast.class).invoke("createOrUpdateToastFromToastBean",null,null);
     }

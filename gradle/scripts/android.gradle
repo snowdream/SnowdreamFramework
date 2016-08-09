@@ -42,7 +42,7 @@ android {
 
     signingConfigs {
         release {
-            if (!System.getenv("TRAVIS") && !System.getenv("GITLAB_CI")) {
+            if (!System.getenv("TRAVIS") && !System.getenv("GITLAB_CI") && System.getenv("KEYSTORE")) {
                 storeFile file(System.getenv("KEYSTORE"))
                 storePassword System.getenv("KEYSTORE_PASSWORD")
                 keyAlias System.getenv("KEY_ALIAS")

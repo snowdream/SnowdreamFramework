@@ -4,6 +4,7 @@ buildscript {
         maven { url  'file:///' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath}
         jcenter { url "http://jcenter.bintray.com/"}
         maven { url "http://repo1.maven.org/maven2"}
+        maven { url "https://plugins.gradle.org/m2" }
     }
 
     dependencies {
@@ -12,6 +13,7 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7'//for bintray_push.gradle
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.3.0' //for dexcount
         classpath "net.rdrei.android.buildtimetracker:gradle-plugin:0.8.0" //for time report
+        classpath "gradle.plugin.com.dorongold.plugins:task-tree:1.2.2"  //for task tree
     }
 }
 

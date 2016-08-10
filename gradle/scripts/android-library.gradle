@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: "build-time-tracker"
+apply plugin: "com.dorongold.task-tree"
 
 
 archivesBaseName = POM_NAME
